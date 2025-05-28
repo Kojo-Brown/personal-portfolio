@@ -67,7 +67,7 @@ const Navbar = () => {
             className="hover:text-purple-600 transition-colors duration-200 cursor-pointer"
           >
             <img
-              src="src/assets/img_one.jpg"
+              src="./images/img_one.jpg"
               alt="Profile"
               className="w-12 h-12 object-contain rounded-full"
             />

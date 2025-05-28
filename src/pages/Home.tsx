@@ -313,7 +313,7 @@ const Home = () => {
 
                 <div className="absolute inset-4 bg-gradient-to-br from-gray-800 to-gray-900 rounded-full flex items-center justify-center overflow-hidden">
                   <img
-                    src="src/assets/img_one.jpg"
+                    src="./images/img_one.jpg"
                     alt="Profile"
                     className="w-full h-full object-cover rounded-full"
                   />
