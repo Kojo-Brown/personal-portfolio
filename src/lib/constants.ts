@@ -22,7 +22,7 @@ export const services: Service[] = [
     category: "development",
     description: "Modern, responsive web interfaces using latest technologies",
     longDescription:
-      "Specialized in creating beautiful, high-performance frontend applications using React.js, Next.js, Angular, and TypeScript. With experience improving user engagement by 40% through intuitive UI/UX design at Amalitech Services.",
+      "Specialized in creating beautiful, high-performance frontend applications using React.js, Next.js, Angular, and TypeScript. With experience in improving user engagement by 40% through intuitive UI/UX design at Amalitech Services.",
     technologies: [
       "React.js",
       "Next.js",
