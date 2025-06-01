@@ -494,7 +494,7 @@ This inquiry was submitted through the Contact page of your portfolio.
                   </div>
                 </div>
                 <p className="text-sm text-gray-500 mt-4">
-                  Last updated: January 2025
+                  Last updated: June 2025
                 </p>
               </div>
             </div>
