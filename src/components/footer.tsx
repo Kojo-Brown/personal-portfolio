@@ -77,12 +77,6 @@ const Footer = () => {
                         Nicholas Brown
                       </span>
                     </h3>
-                    <p className="text-gray-300 text-sm leading-relaxed">
-                      Software Developer & Computer Science Graduate Student
-                      passionate about building innovative solutions that make a
-                      real impact. Specializing in modern web technologies and
-                      enterprise applications.
-                    </p>
                   </div>
 
                   <div className="space-y-2">
