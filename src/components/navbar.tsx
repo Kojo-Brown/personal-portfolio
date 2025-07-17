@@ -40,20 +40,20 @@ const Navbar = () => {
 
   const getLinkClasses = (navItem: string) => {
     const baseClasses =
-      "text-gray-700 hover:text-purple-600 transition-all duration-200 relative cursor-pointer";
+      "text-gray-700 hover:text-gray-900 transition-all duration-200 relative cursor-pointer";
     const activeClasses =
       activeNav === navItem
-        ? "text-purple-600 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-0.5 after:bg-purple-600"
+        ? "text-gray-900 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-0.5 after:bg-gray-900"
         : "";
     return `${baseClasses} ${activeClasses}`;
   };
 
   const getMobileLinkClasses = (navItem: string) => {
     const baseClasses =
-      "block text-gray-700 hover:text-purple-600 transition-all duration-200 py-2 relative cursor-pointer";
+      "block text-gray-700 hover:text-gray-900 transition-all duration-200 py-2 relative cursor-pointer";
     const activeClasses =
       activeNav === navItem
-        ? "text-purple-600 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-purple-600"
+        ? "text-gray-900 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gray-900"
         : "";
     return `${baseClasses} ${activeClasses}`;
   };
@@ -64,7 +64,7 @@ const Navbar = () => {
         <div className="text-xl font-bold text-gray-800">
           <Link
             to="/"
-            className="hover:text-purple-600 transition-colors duration-200 cursor-pointer"
+            className="hover:text-gray-900 transition-colors duration-200 cursor-pointer"
           >
             <img
               src="./images/img_one.jpg"
@@ -124,7 +124,7 @@ const Navbar = () => {
                 <a
                   href="https://www.linkedin.com/in/nicholasdarkobrown/"
                   target="_blank"
-                  className="text-gray-700 hover:text-purple-600 transition-colors duration-200"
+                  className="text-gray-700 hover:text-gray-900 transition-colors duration-200"
                 >
                   <LinkedInIcon />
                 </a>
@@ -133,7 +133,7 @@ const Navbar = () => {
                 <a
                   href="https://github.com/Kojo-Brown"
                   target="_blank"
-                  className="text-gray-700 hover:text-purple-600 transition-colors duration-200"
+                  className="text-gray-700 hover:text-gray-900 transition-colors duration-200"
                 >
                   <GitHubIcon />
                 </a>
@@ -216,7 +216,7 @@ const Navbar = () => {
                 <a
                   href="https://www.linkedin.com/in/nicholasdarkobrown/"
                   target="_blank"
-                  className="text-gray-700 hover:text-purple-600 transition-colors duration-200"
+                  className="text-gray-700 hover:text-gray-900 transition-colors duration-200"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <LinkedInIcon />
@@ -226,7 +226,7 @@ const Navbar = () => {
                 <a
                   href="https://github.com/Kojo-Brown"
                   target="_blank"
-                  className="text-gray-700 hover:text-purple-600 transition-colors duration-200"
+                  className="text-gray-700 hover:text-gray-900 transition-colors duration-200"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <GitHubIcon />

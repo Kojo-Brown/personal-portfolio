@@ -33,10 +33,10 @@ const Services = () => {
       : services.filter((s) => s.category === activeTab);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-purple-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
         <div
-          className="absolute w-96 h-96 bg-purple-100 rounded-full opacity-10 animate-pulse"
+          className="absolute w-96 h-96 bg-gray-100 rounded-full opacity-10 animate-pulse"
           style={{
             top: "5%",
             right: "10%",
@@ -47,7 +47,7 @@ const Services = () => {
           }}
         />
         <div
-          className="absolute w-64 h-64 bg-blue-100 rounded-full opacity-15"
+          className="absolute w-64 h-64 bg-gray-200 rounded-full opacity-15"
           style={{
             top: "70%",
             left: "5%",
@@ -58,7 +58,7 @@ const Services = () => {
           }}
         />
         <div
-          className="absolute w-48 h-48 bg-gradient-to-r from-purple-200 to-blue-200 rounded-full opacity-10"
+          className="absolute w-48 h-48 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full opacity-10"
           style={{
             top: "40%",
             right: "15%",
@@ -69,11 +69,11 @@ const Services = () => {
           }}
         />
 
-        {/* Floating Code Elements */}
+        {/* Floating Elements */}
         {[...Array(15)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-3 h-3 bg-purple-300 rounded-full opacity-30"
+            className="absolute w-3 h-3 bg-gray-300 rounded-full opacity-30"
             style={{
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
@@ -96,11 +96,11 @@ const Services = () => {
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               <span className="text-gray-900">Professional </span>
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent">
                 Services
               </span>
             </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-blue-500 mx-auto mb-8 rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-gray-600 to-gray-800 mx-auto mb-8 rounded-full"></div>
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
               Transforming business ideas into powerful digital solutions. With
               proven experience and expertise in modern technologies, I deliver
@@ -119,21 +119,20 @@ const Services = () => {
           >
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
               <span className="text-gray-900">Proven </span>
-              <span className="text-purple-600">Results</span>
+              <span className="text-gray-700">Results</span>
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-6xl mx-auto">
               {achievements.map((achievement, index) => (
                 <div
                   key={index}
-                  className={`bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-purple-300 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-2 text-center ${
+                  className={`bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-gray-400 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-2 text-center ${
                     isVisible
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-10"
                   }`}
                   style={{ animationDelay: `${0.3 + index * 0.1}s` }}
                 >
-                  <div className="text-3xl mb-2">{achievement.icon}</div>
-                  <div className="text-2xl font-bold text-purple-600 mb-2">
+                  <div className="text-2xl font-bold text-gray-800 mb-2">
                     {achievement.metric}
                   </div>
                   <div className="text-sm text-gray-600">
@@ -158,13 +157,12 @@ const Services = () => {
                 <button
                   key={category.id}
                   onClick={() => setActiveTab(category.id)}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
+                  className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
                     activeTab === category.id
-                      ? "bg-purple-600 text-white shadow-lg"
-                      : "bg-white/60 backdrop-blur-sm text-gray-700 hover:bg-purple-50 border border-gray-200"
+                      ? "bg-black text-white shadow-lg"
+                      : "bg-white/60 backdrop-blur-sm text-gray-700 hover:bg-gray-100 border border-gray-200"
                   }`}
                 >
-                  <span>{category.icon}</span>
                   <span>{category.name}</span>
                 </button>
               ))}
@@ -177,7 +175,7 @@ const Services = () => {
             {filteredServices.map((service, index) => (
               <div
                 key={service.id}
-                className={`group bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-purple-300 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-2 cursor-pointer ${
+                className={`group bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-gray-400 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-2 cursor-pointer ${
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-10"
@@ -186,10 +184,12 @@ const Services = () => {
                 onClick={() => setActiveService(service)}
               >
                 <div className="mb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-3xl">{service.icon}</span>
+                  <div className="w-16 h-16 bg-gradient-to-br from-gray-600 to-gray-800 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-white font-bold text-lg">
+                      {service.title.substring(0, 2).toUpperCase()}
+                    </span>
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors duration-300">
+                  <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors duration-300">
                     {service.title}
                   </h3>
                   <p className="text-gray-600 text-sm mb-4 line-clamp-2">
@@ -198,7 +198,7 @@ const Services = () => {
                 </div>
 
                 <div className="pt-2 border-t border-gray-100">
-                  <span className="text-purple-600 group-hover:text-purple-700 transition-colors duration-300 text-sm font-medium">
+                  <span className="text-gray-700 group-hover:text-gray-900 transition-colors duration-300 text-sm font-medium">
                     View Details →
                   </span>
                 </div>
@@ -216,26 +216,40 @@ const Services = () => {
               className="bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative bg-gradient-to-r from-purple-600 to-blue-600 p-8 text-white">
+              <div className="relative bg-gradient-to-r from-gray-800 to-black p-8 text-white">
                 <button
                   onClick={() => setActiveService(null)}
                   className="absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors duration-200"
                 >
-                  ✕
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
                 </button>
                 <div className="flex items-center mb-4">
                   <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mr-6">
-                    <span className="text-4xl">{activeService.icon}</span>
+                    <span className="text-white font-bold text-2xl">
+                      {activeService.title.substring(0, 2).toUpperCase()}
+                    </span>
                   </div>
                   <div>
                     <h2 className="text-3xl font-bold mb-2">
                       {activeService.title}
                     </h2>
-                    <p className="text-purple-100 text-lg">
+                    <p className="text-gray-100 text-lg">
                       {activeService.description}
                     </p>
-                    <p className="text-purple-200 text-sm mt-2">
-                      ✅ {activeService.experience}
+                    <p className="text-gray-200 text-sm mt-2">
+                      {activeService.experience}
                     </p>
                   </div>
                 </div>
@@ -256,7 +270,7 @@ const Services = () => {
                     <ul className="space-y-3">
                       {activeService.features.map((feature, i) => (
                         <li key={i} className="flex items-start">
-                          <span className="text-purple-500 mr-3 mt-1 w-2 h-2 bg-purple-500 rounded-full flex-shrink-0"></span>
+                          <span className="text-gray-600 mr-3 mt-1 w-2 h-2 bg-gray-600 rounded-full flex-shrink-0"></span>
                           <span className="text-gray-700">{feature}</span>
                         </li>
                       ))}
@@ -271,7 +285,7 @@ const Services = () => {
                       {activeService.technologies.map((tech, i) => (
                         <span
                           key={i}
-                          className="bg-purple-100 text-purple-700 px-3 py-2 rounded-lg text-sm font-medium"
+                          className="bg-gray-100 text-gray-700 px-3 py-2 rounded-lg text-sm font-medium"
                         >
                           {tech}
                         </span>
@@ -294,7 +308,7 @@ const Services = () => {
           >
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
               <span className="text-gray-900">My Development </span>
-              <span className="text-purple-600">Process</span>
+              <span className="text-gray-700">Process</span>
             </h2>
 
             <div className="max-w-6xl mx-auto">
@@ -302,7 +316,7 @@ const Services = () => {
                 {developmentProcess.map((step, index) => (
                   <div
                     key={index}
-                    className={`relative bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-purple-300 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1 ${
+                    className={`relative bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-gray-400 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1 ${
                       isVisible
                         ? "opacity-100 translate-y-0"
                         : "opacity-0 translate-y-10"
@@ -310,10 +324,12 @@ const Services = () => {
                     style={{ animationDelay: `${1 + index * 0.1}s` }}
                   >
                     <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center mr-4">
-                        <span className="text-xl">{step.icon}</span>
+                      <div className="w-12 h-12 bg-gradient-to-br from-gray-600 to-gray-800 rounded-lg flex items-center justify-center mr-4">
+                        <span className="text-white font-bold">
+                          {step.step}
+                        </span>
                       </div>
-                      <div className="text-2xl font-bold text-purple-600">
+                      <div className="text-2xl font-bold text-gray-800">
                         {step.step}
                       </div>
                     </div>
@@ -335,7 +351,7 @@ const Services = () => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <div className="max-w-4xl mx-auto bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 text-white text-center">
+          <div className="max-w-4xl mx-auto bg-gradient-to-r from-gray-800 to-black rounded-2xl p-8 text-white text-center">
             <h2 className="text-3xl font-bold mb-6">
               Ready to Start Your Project?
             </h2>
@@ -348,7 +364,7 @@ const Services = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/contact"
-                className="bg-white text-purple-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 transform hover:scale-105"
+                className="bg-white text-gray-800 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 transform hover:scale-105"
               >
                 Get Free Consultation
               </a>

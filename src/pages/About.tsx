@@ -40,10 +40,10 @@ const About = () => {
       : aboutSkills.filter((s) => s.category === activeSkillCategory);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-purple-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
         <div
-          className="absolute w-96 h-96 bg-purple-100 rounded-full opacity-10 animate-pulse"
+          className="absolute w-96 h-96 bg-gray-100 rounded-full opacity-10 animate-pulse"
           style={{
             top: "5%",
             right: "10%",
@@ -54,7 +54,7 @@ const About = () => {
           }}
         />
         <div
-          className="absolute w-64 h-64 bg-blue-100 rounded-full opacity-15"
+          className="absolute w-64 h-64 bg-gray-200 rounded-full opacity-15"
           style={{
             top: "70%",
             left: "5%",
@@ -65,7 +65,7 @@ const About = () => {
           }}
         />
         <div
-          className="absolute w-48 h-48 bg-gradient-to-r from-purple-200 to-blue-200 rounded-full opacity-10"
+          className="absolute w-48 h-48 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full opacity-10"
           style={{
             top: "40%",
             right: "15%",
@@ -75,28 +75,6 @@ const About = () => {
             transition: "transform 0.1s ease-out",
           }}
         />
-
-        {[...Array(15)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute text-purple-300 opacity-20 text-2xl animate-pulse"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              transform: `translate(${
-                mousePosition.x * (0.005 + Math.random() * 0.01)
-              }px, ${mousePosition.y * (0.005 + Math.random() * 0.01)}px)`,
-              transition: "transform 0.1s ease-out",
-            }}
-          >
-            {
-              ["✨", "🚀", "💻", "⚡", "🎯", "🌟"][
-                Math.floor(Math.random() * 6)
-              ]
-            }
-          </div>
-        ))}
       </div>
 
       <div className="container mx-auto px-4 py-12 relative z-10">
@@ -107,7 +85,7 @@ const About = () => {
         >
           <div className="max-w-4xl mx-auto">
             <div className="w-32 h-32 mx-auto mb-8 relative">
-              <div className="w-full h-full bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-4xl text-white font-bold shadow-xl animate-pulse">
+              <div className="w-full h-full bg-gradient-to-br from-gray-700 to-gray-900 rounded-full flex items-center justify-center text-4xl text-white font-bold shadow-xl">
                 NB
               </div>
               <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-4 border-white"></div>
@@ -115,11 +93,11 @@ const About = () => {
 
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               <span className="text-gray-900">Hi, I'm </span>
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent">
                 Nicholas
               </span>
             </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-blue-500 mx-auto mb-8 rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-gray-600 to-gray-800 mx-auto mb-8 rounded-full"></div>
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-8">
               A passionate{" "}
               <span className="font-semibold text-gray-900">
@@ -145,9 +123,9 @@ const About = () => {
               ].map((stat, index) => (
                 <div
                   key={index}
-                  className="bg-white/60 backdrop-blur-sm rounded-lg p-4 border border-gray-200 hover:border-purple-300 transition-all duration-300"
+                  className="bg-white/60 backdrop-blur-sm rounded-lg p-4 border border-gray-200 hover:border-gray-400 transition-all duration-300"
                 >
-                  <div className="text-2xl font-bold text-purple-600">
+                  <div className="text-2xl font-bold text-gray-800">
                     {stat.value}
                   </div>
                   <div className="text-sm text-gray-600">{stat.label}</div>
@@ -170,14 +148,14 @@ const About = () => {
                 <button
                   key={section.id}
                   onClick={() => setActiveSection(section.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
+                  className={`px-4 py-2 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
                     activeSection === section.id
-                      ? "bg-purple-600 text-white shadow-lg"
-                      : "bg-white/60 backdrop-blur-sm text-gray-700 hover:bg-purple-50 border border-gray-200"
+                      ? "bg-black text-white shadow-lg"
+                      : "bg-white/60 backdrop-blur-sm text-gray-700 hover:bg-gray-100 border border-gray-200"
                   }`}
                 >
-                  <span>{section.icon}</span>
                   <span className="hidden sm:inline">{section.name}</span>
+                  <span className="sm:hidden">{section.name}</span>
                 </button>
               ))}
             </div>
@@ -195,13 +173,13 @@ const About = () => {
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold text-center mb-12">
                 <span className="text-gray-900">About </span>
-                <span className="text-purple-600">Me</span>
+                <span className="text-gray-700">Me</span>
               </h2>
 
               <div className="grid md:grid-cols-2 gap-8 mb-12">
-                <div className="bg-white/60 backdrop-blur-sm rounded-xl p-8 border border-gray-200 hover:border-purple-300 transition-all duration-300 hover:shadow-lg">
+                <div className="bg-white/60 backdrop-blur-sm rounded-xl p-8 border border-gray-200 hover:border-gray-400 transition-all duration-300 hover:shadow-lg">
                   <h3 className="text-xl font-bold text-gray-900 mb-4">
-                    🚀 Professional Journey
+                    Professional Journey
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
                     Currently pursuing my Master's in Computer Science at
@@ -212,9 +190,9 @@ const About = () => {
                   </p>
                 </div>
 
-                <div className="bg-white/60 backdrop-blur-sm rounded-xl p-8 border border-gray-200 hover:border-purple-300 transition-all duration-300 hover:shadow-lg">
+                <div className="bg-white/60 backdrop-blur-sm rounded-xl p-8 border border-gray-200 hover:border-gray-400 transition-all duration-300 hover:shadow-lg">
                   <h3 className="text-xl font-bold text-gray-900 mb-4">
-                    💡 What Drives Me
+                    What Drives Me
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
                     I'm passionate about creating innovative solutions that make
@@ -240,32 +218,32 @@ const About = () => {
             <div className="max-w-5xl mx-auto">
               <h2 className="text-3xl font-bold text-center mb-12">
                 <span className="text-gray-900">Professional </span>
-                <span className="text-purple-600">Experience</span>
+                <span className="text-gray-700">Experience</span>
               </h2>
 
               <div className="relative">
-                <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 to-blue-500 hidden md:block"></div>
+                <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gray-600 to-gray-800 hidden md:block"></div>
 
                 {experiences
                   .filter((exp) => exp.type === "work")
                   .map((exp) => (
                     <div key={exp.id} className="relative mb-12 last:mb-0">
-                      <div className="absolute left-6 top-6 w-4 h-4 bg-purple-500 rounded-full border-4 border-white shadow-lg animate-pulse hidden md:block"></div>
+                      <div className="absolute left-6 top-6 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg hidden md:block"></div>
 
-                      <div className="md:ml-20 bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-purple-300 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+                      <div className="md:ml-20 bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-gray-400 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
                         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-4">
                           <div>
                             <h3 className="text-xl font-bold text-gray-900 mb-1">
                               {exp.title}
                             </h3>
-                            <p className="text-purple-600 font-semibold mb-1">
+                            <p className="text-gray-700 font-semibold mb-1">
                               {exp.company}
                             </p>
                             <p className="text-gray-500 text-sm">
                               {exp.location}
                             </p>
                           </div>
-                          <span className="bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-medium mt-2 lg:mt-0 self-start">
+                          <span className="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-medium mt-2 lg:mt-0 self-start">
                             {exp.period}
                           </span>
                         </div>
@@ -279,7 +257,7 @@ const About = () => {
                           <ul className="space-y-2">
                             {exp.achievements.map((achievement, i) => (
                               <li key={i} className="flex items-start">
-                                <span className="text-purple-500 mr-2 mt-1.5 w-2 h-2 bg-purple-500 rounded-full flex-shrink-0"></span>
+                                <span className="text-gray-600 mr-2 mt-1.5 w-2 h-2 bg-gray-600 rounded-full flex-shrink-0"></span>
                                 <span className="text-gray-700 text-sm">
                                   {achievement}
                                 </span>
@@ -292,7 +270,7 @@ const About = () => {
                           {exp.technologies.map((tech, i) => (
                             <span
                               key={i}
-                              className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-medium"
+                              className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-medium"
                             >
                               {tech}
                             </span>
@@ -317,7 +295,7 @@ const About = () => {
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold text-center mb-12">
                 <span className="text-gray-900">Education & </span>
-                <span className="text-purple-600">Learning</span>
+                <span className="text-gray-700">Learning</span>
               </h2>
 
               <div className="grid md:grid-cols-2 gap-8">
@@ -326,24 +304,24 @@ const About = () => {
                   .map((edu) => (
                     <div
                       key={edu.id}
-                      className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-purple-300 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-2"
+                      className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-gray-400 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-2"
                     >
                       <div className="mb-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center mb-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg flex items-center justify-center mb-4">
                           <span className="text-white text-xl font-bold">
-                            🎓
+                            ED
                           </span>
                         </div>
                         <h3 className="text-xl font-bold text-gray-900 mb-2">
                           {edu.title}
                         </h3>
-                        <p className="text-purple-600 font-semibold mb-1">
+                        <p className="text-gray-700 font-semibold mb-1">
                           {edu.company}
                         </p>
                         <p className="text-gray-500 text-sm mb-2">
                           {edu.location}
                         </p>
-                        <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
+                        <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
                           {edu.period}
                         </span>
                       </div>
@@ -357,7 +335,7 @@ const About = () => {
                         <ul className="space-y-1">
                           {edu.achievements.map((achievement, i) => (
                             <li key={i} className="flex items-start">
-                              <span className="text-blue-500 mr-2 mt-1.5 w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+                              <span className="text-gray-600 mr-2 mt-1.5 w-1.5 h-1.5 bg-gray-600 rounded-full flex-shrink-0"></span>
                               <span className="text-gray-700 text-sm">
                                 {achievement}
                               </span>
@@ -370,7 +348,7 @@ const About = () => {
                         {edu.technologies.map((tech, i) => (
                           <span
                             key={i}
-                            className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium"
+                            className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-medium"
                           >
                             {tech}
                           </span>
@@ -394,7 +372,7 @@ const About = () => {
             <div className="max-w-6xl mx-auto">
               <h2 className="text-3xl font-bold text-center mb-12">
                 <span className="text-gray-900">Technical </span>
-                <span className="text-purple-600">Skills</span>
+                <span className="text-gray-700">Skills</span>
               </h2>
 
               <div className="flex flex-wrap justify-center gap-4 mb-8">
@@ -404,8 +382,8 @@ const About = () => {
                     onClick={() => setActiveSkillCategory(category.id)}
                     className={`px-4 py-2 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
                       activeSkillCategory === category.id
-                        ? "bg-purple-600 text-white shadow-lg"
-                        : "bg-white/60 backdrop-blur-sm text-gray-700 hover:bg-purple-50 border border-gray-200"
+                        ? "bg-black text-white shadow-lg"
+                        : "bg-white/60 backdrop-blur-sm text-gray-700 hover:bg-gray-100 border border-gray-200"
                     }`}
                   >
                     {category.name} ({category.count})
@@ -417,7 +395,7 @@ const About = () => {
                 {filteredSkills.map((skill, index) => (
                   <div
                     key={skill.name}
-                    className={`bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-purple-300 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-2 ${
+                    className={`bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-gray-400 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-2 ${
                       isVisible
                         ? "opacity-100 translate-y-0"
                         : "opacity-0 translate-y-10"
@@ -425,12 +403,16 @@ const About = () => {
                     style={{ animationDelay: `${0.6 + index * 0.1}s` }}
                   >
                     <div className="flex items-center mb-4">
-                      <div className="text-3xl mr-3">{skill.icon}</div>
+                      <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+                        <span className="text-gray-700 font-bold text-sm">
+                          {skill.name.substring(0, 2).toUpperCase()}
+                        </span>
+                      </div>
                       <div>
                         <h3 className="text-lg font-bold text-gray-900">
                           {skill.name}
                         </h3>
-                        <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs font-medium">
+                        <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-medium">
                           {skill.category}
                         </span>
                       </div>
@@ -453,25 +435,27 @@ const About = () => {
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold text-center mb-12">
                 <span className="text-gray-900">Awards & </span>
-                <span className="text-purple-600">Recognition</span>
+                <span className="text-gray-700">Recognition</span>
               </h2>
 
               <div className="grid md:grid-cols-2 gap-8 mb-12">
                 {awards.map((award, index) => (
                   <div
                     key={index}
-                    className="bg-white/60 backdrop-blur-sm rounded-xl p-8 border border-gray-200 hover:border-purple-300 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-2"
+                    className="bg-white/60 backdrop-blur-sm rounded-xl p-8 border border-gray-200 hover:border-gray-400 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-2"
                   >
                     <div className="flex items-start mb-4">
-                      <div className="text-4xl mr-4">{award.icon}</div>
+                      <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mr-4">
+                        <span className="text-gray-700 font-bold">AW</span>
+                      </div>
                       <div>
                         <h3 className="text-xl font-bold text-gray-900 mb-1">
                           {award.title}
                         </h3>
-                        <p className="text-purple-600 font-semibold mb-1">
+                        <p className="text-gray-700 font-semibold mb-1">
                           {award.organization}
                         </p>
-                        <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">
+                        <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
                           {award.date}
                         </span>
                       </div>
@@ -481,7 +465,7 @@ const About = () => {
                 ))}
               </div>
 
-              <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 text-white text-center">
+              <div className="bg-gradient-to-r from-gray-800 to-black rounded-2xl p-8 text-white text-center">
                 <h3 className="text-2xl font-bold mb-6">Beyond Coding</h3>
                 <p className="text-lg mb-6 opacity-90">
                   When I'm not writing code, I'm actively engaged in the tech
@@ -491,16 +475,16 @@ const About = () => {
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">
-                    🏆 Hackathon Winner
+                    Hackathon Winner
                   </span>
                   <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">
-                    🌟 Mentor
+                    Mentor
                   </span>
                   <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">
-                    🎯 Innovation
+                    Innovation
                   </span>
                   <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">
-                    📚 Continuous Learning
+                    Continuous Learning
                   </span>
                 </div>
               </div>

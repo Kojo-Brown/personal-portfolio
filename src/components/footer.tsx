@@ -46,14 +46,14 @@ const Footer = () => {
   return (
     <footer
       id="footer"
-      className="bg-gradient-to-br from-gray-900 via-gray-800 to-purple-900 text-white relative overflow-hidden"
+      className="bg-black text-white relative overflow-hidden"
     >
       <div className="absolute inset-0 opacity-5">
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 25% 25%, purple 2px, transparent 2px),
-                           radial-gradient(circle at 75% 75%, blue 2px, transparent 2px)`,
+            backgroundImage: `radial-gradient(circle at 25% 25%, white 1px, transparent 1px),
+                           radial-gradient(circle at 75% 75%, gray 1px, transparent 1px)`,
             backgroundSize: "50px 50px",
           }}
         ></div>
@@ -73,19 +73,17 @@ const Footer = () => {
                 <div className="lg:col-span-1">
                   <div className="mb-6">
                     <h3 className="text-2xl font-bold mb-4">
-                      <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                      <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                         Nicholas Brown
                       </span>
                     </h3>
                   </div>
 
                   <div className="space-y-2">
-                    <div className="flex items-center text-sm text-gray-400">
-                      <span className="mr-2">🎓</span>
+                    <div className="text-sm text-gray-400">
                       <span>MS Computer Science Student</span>
                     </div>
-                    <div className="flex items-center text-sm text-gray-400">
-                      <span className="mr-2">📍</span>
+                    <div className="text-sm text-gray-400">
                       <span>New Haven, CT</span>
                     </div>
                   </div>
@@ -100,7 +98,7 @@ const Footer = () => {
                       <li key={link.name}>
                         <a
                           href={link.href}
-                          className={`text-gray-300 hover:text-purple-400 transition-colors duration-200 text-sm hover:translate-x-1 transform inline-block ${
+                          className={`text-gray-300 hover:text-white transition-colors duration-200 text-sm hover:translate-x-1 transform inline-block ${
                             isVisible
                               ? "opacity-100 translate-x-0"
                               : "opacity-0 -translate-x-2"
@@ -123,7 +121,7 @@ const Footer = () => {
                       <li key={link.name}>
                         <a
                           href={link.href}
-                          className={`text-gray-300 hover:text-purple-400 transition-colors duration-200 text-sm hover:translate-x-1 transform inline-block ${
+                          className={`text-gray-300 hover:text-white transition-colors duration-200 text-sm hover:translate-x-1 transform inline-block ${
                             isVisible
                               ? "opacity-100 translate-x-0"
                               : "opacity-0 -translate-x-2"
@@ -144,15 +142,11 @@ const Footer = () => {
 
                   <div className="space-y-3 mb-6">
                     {contactInfo.slice(0, 2).map((contact) => (
-                      <div
-                        key={contact.label}
-                        className="flex items-center text-sm"
-                      >
-                        <span className="mr-2">{contact.icon}</span>
+                      <div key={contact.label} className="text-sm">
                         {contact.href ? (
                           <a
                             href={contact.href}
-                            className="text-gray-300 hover:text-purple-400 transition-colors duration-200"
+                            className="text-gray-300 hover:text-white transition-colors duration-200"
                           >
                             {contact.value}
                           </a>
@@ -194,9 +188,7 @@ const Footer = () => {
                         ? "noopener noreferrer"
                         : ""
                     }
-                    className={`text-gray-400 ${
-                      social.color
-                    } transition-all duration-200 transform hover:scale-110 ${
+                    className={`text-gray-400 hover:text-white transition-all duration-200 transform hover:scale-110 text-sm ${
                       isVisible
                         ? "opacity-100 translate-y-0"
                         : "opacity-0 translate-y-2"
@@ -204,17 +196,17 @@ const Footer = () => {
                     style={{ animationDelay: `${0.5 + index * 0.1}s` }}
                     title={social.name}
                   >
-                    <span className="text-2xl">{social.icon}</span>
+                    {social.name}
                   </a>
                 ))}
               </div>
 
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                className="bg-purple-600 hover:bg-purple-700 text-white p-3 rounded-full transition-all duration-200 transform hover:scale-110 hover:-translate-y-1 shadow-lg"
+                className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded transition-all duration-200 transform hover:scale-105 hover:-translate-y-1 shadow-lg text-sm"
                 title="Back to top"
               >
-                <span className="text-lg">↑</span>
+                Back to top
               </button>
             </div>
           </div>

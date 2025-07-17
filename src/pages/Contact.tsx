@@ -80,17 +80,17 @@ const Contact = () => {
         name: formData.name,
         email: formData.email,
         message: `
-📋 CONTACT INFORMATION:
+CONTACT INFORMATION:
 Name: ${formData.name}
 Email: ${formData.email}
 
-📊 PROJECT DETAILS:
+PROJECT DETAILS:
 Subject: ${formData.subject || "Not specified"}
 Project Type: ${formData.projectType || "Not specified"}
 Budget Range: ${formData.budget || "Not specified"}
 Timeline: ${formData.timeline || "Not specified"}
 
-💬 DETAILED MESSAGE:
+DETAILED MESSAGE:
 ${formData.message}
 
 ---
@@ -135,25 +135,21 @@ This inquiry was submitted through the Contact page of your portfolio.
 
   const contactInfo = [
     {
-      icon: "📧",
       title: "Email",
       value: "brown.nicholas.darko@gmail.com",
       action: "mailto:brown.nicholas.darko@gmail.com",
     },
     {
-      icon: "📱",
       title: "Phone",
       value: "203.747.6460",
       action: "tel:+12037476460",
     },
     {
-      icon: "📍",
       title: "Location",
       value: "New Haven, CT, USA",
       action: "https://maps.google.com/?q=New+Haven,CT",
     },
     {
-      icon: "💼",
       title: "LinkedIn",
       value: "Nicholas Darko Brown",
       action: "https://linkedin.com/in/NicholasDarkoBrown",
@@ -189,10 +185,10 @@ This inquiry was submitted through the Contact page of your portfolio.
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-purple-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
         <div
-          className="absolute w-96 h-96 bg-purple-100 rounded-full opacity-10 animate-pulse"
+          className="absolute w-96 h-96 bg-gray-100 rounded-full opacity-10 animate-pulse"
           style={{
             top: "5%",
             right: "10%",
@@ -203,7 +199,7 @@ This inquiry was submitted through the Contact page of your portfolio.
           }}
         />
         <div
-          className="absolute w-64 h-64 bg-blue-100 rounded-full opacity-15"
+          className="absolute w-64 h-64 bg-gray-200 rounded-full opacity-15"
           style={{
             top: "70%",
             left: "5%",
@@ -214,7 +210,7 @@ This inquiry was submitted through the Contact page of your portfolio.
           }}
         />
         <div
-          className="absolute w-48 h-48 bg-gradient-to-r from-purple-200 to-blue-200 rounded-full opacity-10"
+          className="absolute w-48 h-48 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full opacity-10"
           style={{
             top: "40%",
             right: "15%",
@@ -235,11 +231,11 @@ This inquiry was submitted through the Contact page of your portfolio.
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               <span className="text-gray-900">Let's </span>
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent">
                 Connect
               </span>
             </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-blue-500 mx-auto mb-8 rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-gray-600 to-gray-800 mx-auto mb-8 rounded-full"></div>
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
               Ready to bring your ideas to life? Let's discuss your project and
               create something amazing together. I'm here to help turn your
@@ -273,7 +269,7 @@ This inquiry was submitted through the Contact page of your portfolio.
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder="Your full name"
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
                     />
                   </div>
                   <div>
@@ -286,7 +282,7 @@ This inquiry was submitted through the Contact page of your portfolio.
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="your.email@example.com"
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
                     />
                   </div>
                 </div>
@@ -301,7 +297,7 @@ This inquiry was submitted through the Contact page of your portfolio.
                     value={formData.subject}
                     onChange={handleInputChange}
                     placeholder="Brief description of your project"
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
                   />
                 </div>
 
@@ -314,7 +310,7 @@ This inquiry was submitted through the Contact page of your portfolio.
                       name="projectType"
                       value={formData.projectType}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
                     >
                       <option value="">Select project type</option>
                       {projectTypes.map((type, index) => (
@@ -332,7 +328,7 @@ This inquiry was submitted through the Contact page of your portfolio.
                       name="budget"
                       value={formData.budget}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
                     >
                       <option value="">Select budget range</option>
                       {budgetRanges.map((range, index) => (
@@ -352,7 +348,7 @@ This inquiry was submitted through the Contact page of your portfolio.
                     name="timeline"
                     value={formData.timeline}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
                   >
                     <option value="">When do you need this completed?</option>
                     {timelines.map((timeline, index) => (
@@ -373,7 +369,7 @@ This inquiry was submitted through the Contact page of your portfolio.
                     onChange={handleInputChange}
                     placeholder="Tell me about your project, goals, and any specific requirements..."
                     rows={5}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white/80 backdrop-blur-sm resize-none"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white/80 backdrop-blur-sm resize-none"
                   />
                 </div>
 
@@ -383,7 +379,7 @@ This inquiry was submitted through the Contact page of your portfolio.
                   className={`w-full font-semibold py-4 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 ${
                     isSubmitting
                       ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-purple-600 hover:bg-purple-700 text-white shadow-lg hover:shadow-xl"
+                      : "bg-black hover:bg-gray-800 text-white shadow-lg hover:shadow-xl"
                   }`}
                 >
                   {isSubmitting ? "Sending Message..." : "Send Message"}
@@ -392,7 +388,7 @@ This inquiry was submitted through the Contact page of your portfolio.
                 {submitStatus === "success" && (
                   <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
                     <p className="text-green-800 text-sm">
-                      ✅ Message sent successfully! I'll review your project
+                      Message sent successfully! I'll review your project
                       details and get back to you within 24 hours.
                     </p>
                   </div>
@@ -401,8 +397,8 @@ This inquiry was submitted through the Contact page of your portfolio.
                 {submitStatus === "error" && (
                   <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
                     <p className="text-red-800 text-sm">
-                      ❌ Failed to send message. Please ensure all required
-                      fields are filled or email me directly.
+                      Failed to send message. Please ensure all required fields
+                      are filled or email me directly.
                     </p>
                   </div>
                 )}
@@ -429,11 +425,13 @@ This inquiry was submitted through the Contact page of your portfolio.
                         ? "noopener noreferrer"
                         : ""
                     }
-                    className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-purple-300 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1 block"
+                    className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-gray-400 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1 block"
                   >
                     <div className="flex items-center">
-                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center mr-4">
-                        <span className="text-xl">{info.icon}</span>
+                      <div className="w-12 h-12 bg-gradient-to-br from-gray-600 to-gray-800 rounded-lg flex items-center justify-center mr-4">
+                        <span className="text-white font-bold text-sm">
+                          {info.title.substring(0, 2).toUpperCase()}
+                        </span>
                       </div>
                       <div>
                         <h3 className="font-semibold text-gray-900">
@@ -446,7 +444,7 @@ This inquiry was submitted through the Contact page of your portfolio.
                 ))}
               </div>
 
-              <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 text-white">
+              <div className="bg-gradient-to-r from-gray-800 to-black rounded-2xl p-8 text-white">
                 <h3 className="text-2xl font-bold mb-4">Quick Contact</h3>
                 <p className="mb-6 opacity-90">
                   Need immediate assistance? Feel free to reach out directly via
@@ -455,16 +453,16 @@ This inquiry was submitted through the Contact page of your portfolio.
                 </p>
                 <div className="space-y-3">
                   <div className="flex items-center">
-                    <span className="mr-3">⏰</span>
-                    <span>Response time: Usually within 4-6 hours</span>
+                    <span className="mr-3 text-gray-300">Response time:</span>
+                    <span>Usually within 4-6 hours</span>
                   </div>
                   <div className="flex items-center">
-                    <span className="mr-3">🌍</span>
-                    <span>Timezone: EST (UTC-5)</span>
+                    <span className="mr-3 text-gray-300">Timezone:</span>
+                    <span>EST (UTC-5)</span>
                   </div>
                   <div className="flex items-center">
-                    <span className="mr-3">💬</span>
-                    <span>Available for video calls by appointment</span>
+                    <span className="mr-3 text-gray-300">Available:</span>
+                    <span>Video calls by appointment</span>
                   </div>
                 </div>
               </div>
@@ -494,7 +492,7 @@ This inquiry was submitted through the Contact page of your portfolio.
                   </div>
                 </div>
                 <p className="text-sm text-gray-500 mt-4">
-                  Last updated: June 2025
+                  Last updated: July 2025
                 </p>
               </div>
             </div>

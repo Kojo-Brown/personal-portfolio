@@ -163,7 +163,7 @@ const Home = () => {
                   applications & robust
                 </span>
                 <span className="relative inline-block">
-                  <span className="text-purple-600">systems.</span>
+                  <span className="text-gray-800">systems.</span>
                   <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-purple-600 to-blue-500 rounded-full transform scale-x-0 animate-[scale-x_1s_ease-out_0.5s_forwards] origin-left"></div>
                 </span>
               </h1>
@@ -212,7 +212,7 @@ const Home = () => {
                     className={`px-8 py-4 font-semibold rounded-lg transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl ${
                       isSubmitting
                         ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-purple-600 hover:bg-purple-700 text-white"
+                        : "bg-black hover:bg-gray-800 text-white"
                     }`}
                   >
                     {isSubmitting
