@@ -665,6 +665,54 @@ export const projects: Project[] = [
     status: "in-progress",
     year: "2025",
   },
+  {
+    id: 9,
+    title: "Eye-Assist",
+    category: "ai",
+    description:
+      "AI-powered real-time assistive navigation system improving independent mobility for visually impaired users",
+    longDescription:
+      "Eye-Assist is an AI-powered real-time assistive navigation system developed to improve independent mobility for visually impaired users. The system combines computer vision, depth sensing, object tracking, and voice guidance to detect obstacles, estimate distances, identify hazards, and provide contextual navigation assistance in real time. It also includes OCR-based text reading, scene understanding, and voice command capabilities — all running as low-latency edge AI on embedded hardware.",
+    image: "/api/placeholder/600/400",
+    technologies: [
+      "Python",
+      "TypeScript",
+      "Angular",
+      "Flask",
+      "YOLO26",
+      "OpenCV",
+      "TensorFlow Lite",
+      "Intel RealSense D435i",
+      "Raspberry Pi 5",
+      "Android",
+      "SQLite",
+    ],
+    features: [
+      "Real-time object detection and classification",
+      "Depth estimation and distance measurement",
+      "Dynamic obstacle prioritization and risk assessment",
+      "Voice-guided navigation with text-to-speech feedback",
+      "OCR text reading mode",
+      "Scene description and environmental awareness",
+      "Voice commands for hands-free interaction",
+      "Indoor and outdoor navigation support",
+      "Edge AI inference with low-latency processing",
+    ],
+    achievements: [
+      "Published at IEEE UEMCON 2025 and CCSCNE 2026",
+      "Featured by Fox 61, NBC Connecticut, and News8",
+      "Demonstrated as a real-time AI accessibility solution using embedded computer vision and edge computing",
+    ],
+    metrics: {
+      publications: "2",
+      mediaFeatures: "3 outlets",
+      inference: "Real-time",
+      platform: "Edge AI",
+    },
+    status: "completed",
+    year: "2026",
+    company: "Quinnipiac University",
+  },
 ];
 
 export const skills: Skill[] = [
@@ -693,6 +741,12 @@ export const projectCategories: ProjectCategory[] = [
     name: "Web Applications",
     icon: "💻",
     count: projects.filter((p) => p.category === "web-app").length,
+  },
+  {
+    id: "ai",
+    name: "AI & Research",
+    icon: "🤖",
+    count: projects.filter((p) => p.category === "ai").length,
   },
   {
     id: "cloud",
@@ -733,7 +787,7 @@ export const serviceLinks: FooterLink[] = [
 export const socialLinks: SocialLink[] = [
   {
     name: "LinkedIn",
-    href: "https://linkedin.com/in/NicholasDarkoBrown",
+    href: "https://www.linkedin.com/in/nicholasdarkobrown/",
     icon: "💼",
     color: "hover:text-blue-600",
   },
@@ -785,10 +839,51 @@ export const contactInfo: ContactInfo[] = [
 export const experiences: Experience[] = [
   {
     id: 1,
+    title: "Poll Interviewer",
+    company: "Quinnipiac University",
+    location: "Hamden, CT",
+    period: "October 2024 – October 2025",
+    description:
+      "Conducted professional polling interviews for university research with American residents nationwide about current issues.",
+    achievements: [
+      "Conducted professional polling interviews for the university with American residents nationwide about issues in the news",
+      "Maintained high data quality standards and professional communication protocols",
+      "Contributed to university research initiatives and data collection efforts",
+    ],
+    technologies: ["Research", "Data Collection", "Communication", "Analysis"],
+    type: "work",
+  },
+  {
+    id: 2,
+    title: "Summer Research Assistant",
+    company: "Quinnipiac University",
+    location: "Hamden, CT",
+    period: "May 2025 – August 2025",
+    description:
+      "Research assistant on Eye-Assist, an AI-powered real-time assistive navigation system improving independent mobility for visually impaired users.",
+    achievements: [
+      "Built real-time object detection, depth estimation, and obstacle prioritization using YOLO26, OpenCV, and Intel RealSense RGB-D imaging",
+      "Deployed low-latency edge AI inference on Raspberry Pi 5 with TensorFlow Lite optimization",
+      "Implemented voice-guided navigation, OCR text reading, and scene description features",
+      "Research published at IEEE UEMCON 2025 and CCSCNE 2026; featured by Fox 61, NBC Connecticut, and News8",
+    ],
+    technologies: [
+      "Python",
+      "YOLO26",
+      "OpenCV",
+      "TensorFlow Lite",
+      "Angular",
+      "Flask",
+      "Raspberry Pi 5",
+    ],
+    type: "work",
+  },
+  {
+    id: 5,
     title: "Associate Frontend Developer",
     company: "Amalitech Services",
     location: "Takoradi, GH",
-    period: "June 2022 – July 2024",
+    period: "June 2021 – July 2024",
     description:
       "Led frontend development for enterprise applications, mentored junior developers, and improved user engagement significantly.",
     achievements: [
@@ -802,34 +897,18 @@ export const experiences: Experience[] = [
     type: "work",
   },
   {
-    id: 2,
-    title: "Poll Interviewer",
-    company: "Quinnipiac University",
-    location: "Hamden, CT",
-    period: "October 2024 – present",
-    description:
-      "Conducting professional polling interviews for university research with American residents nationwide about current issues.",
-    achievements: [
-      "Conduct professional polling interviews for university with American residents nationwide about issue in the news",
-      "Maintain high data quality standards and professional communication protocols",
-      "Contribute to university research initiatives and data collection efforts",
-    ],
-    technologies: ["Research", "Data Collection", "Communication", "Analysis"],
-    type: "work",
-  },
-  {
     id: 3,
     title: "Master of Science in Computer Science",
     company: "Quinnipiac University",
     location: "Hamden, CT",
-    period: "Expected May 2026",
+    period: "August 2024 – May 2026",
     description:
-      "Advanced computer science studies focusing on modern software development, algorithms, and cybersecurity.",
+      "Advanced computer science studies focused on modern software development, algorithms, and cybersecurity.",
     achievements: [
       "Coursework: Database Systems, Computer Architecture, Formal Specification Methods",
       "Web Development, Algorithms and Design, Introduction to Cybersecurity",
-      "Maintaining strong academic performance while working part-time",
-      "Active participant in university computing initiatives",
+      "Maintained strong academic performance while working part-time",
+      "Three-time hackathon winner with the Quinnipiac Computing Club",
     ],
     technologies: [],
     type: "education",
@@ -839,7 +918,7 @@ export const experiences: Experience[] = [
     title: "Bachelor of Science in Computer Engineering",
     company: "University of Energy and Natural Resources",
     location: "Sunyani, GH",
-    period: "August 2019",
+    period: "September 2015 – August 2019",
     description:
       "Comprehensive foundation in computer engineering, software development, and system design.",
     achievements: [
@@ -970,6 +1049,14 @@ export const aboutSkills: AboutSkill[] = [
 
 export const awards: Award[] = [
   {
+    title: "1st Place - Fall 2025 Hackathon",
+    organization: "Quinnipiac Computing Club",
+    date: "Fall 2025",
+    description:
+      "Developed an AI chatbot for Quinnipiac University that helps students quickly find accurate answers to campus and academic questions.",
+    icon: "🏆",
+  },
+  {
     title: "1st Place - Spring 2025 Hackathon",
     organization: "Quinnipiac Computing Club",
     date: "Spring 2025",
@@ -1038,7 +1125,7 @@ export const aboutSections = [
 ];
 
 export const stats = [
-  { label: "Projects Completed", value: "8+", icon: "🚀" },
+  { label: "Projects Completed", value: "9+", icon: "🚀" },
   { label: "Technologies Mastered", value: "15+", icon: "⚡" },
-  { label: "Years Experience", value: "2+", icon: "📅" },
+  { label: "Years Experience", value: "4+", icon: "📅" },
 ];

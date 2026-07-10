@@ -1,36 +1,33 @@
-import { projectCategories, projects, skills, stats } from "@/lib/constants";
-import type { Project } from "@/types";
 import { useEffect, useState } from "react";
+import { ArrowUpRight, Github, Globe, X } from "lucide-react";
+import Reveal from "@/components/reveal";
+import { projectCategories, projects } from "@/lib/constants";
+import type { Project } from "@/types";
+
+const statusStyles: Record<string, string> = {
+  completed: "bg-emerald-500",
+  "in-progress": "bg-amber-500",
+  concept: "bg-sky-500",
+};
 
 const Works = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isVisible, setIsVisible] = useState(false);
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [activeTab, setActiveTab] = useState("projects");
 
   useEffect(() => {
-    setIsVisible(true);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100,
-      });
+    document.body.style.overflow = selectedProject ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
     };
+  }, [selectedProject]);
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedProject(null);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
-
-  // Add function to close modal
-  const closeModal = (e?: React.MouseEvent) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    setSelectedProject(null);
-  };
 
   const filteredProjects =
     activeCategory === "all"
@@ -38,487 +35,274 @@ const Works = () => {
       : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          className="absolute w-96 h-96 bg-gray-100 rounded-full opacity-10 animate-pulse"
-          style={{
-            top: "5%",
-            right: "10%",
-            transform: `translate(${mousePosition.x * 0.02}px, ${
-              mousePosition.y * 0.02
-            }px)`,
-            transition: "transform 0.1s ease-out",
-          }}
-        />
-        <div
-          className="absolute w-64 h-64 bg-gray-200 rounded-full opacity-15"
-          style={{
-            top: "70%",
-            left: "5%",
-            transform: `translate(${mousePosition.x * -0.01}px, ${
-              mousePosition.y * -0.01
-            }px)`,
-            transition: "transform 0.1s ease-out",
-          }}
-        />
-        <div
-          className="absolute w-48 h-48 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full opacity-10"
-          style={{
-            top: "40%",
-            right: "15%",
-            transform: `translate(${mousePosition.x * 0.015}px, ${
-              mousePosition.y * 0.015
-            }px)`,
-            transition: "transform 0.1s ease-out",
-          }}
-        />
-      </div>
+    <div>
+      {/* Header */}
+      <section className="mx-auto max-w-6xl px-6 pb-16 pt-20 md:pt-28">
+        <Reveal>
+          <p className="label-mono mb-6">Selected work</p>
+          <h1 className="font-display max-w-3xl text-5xl font-medium leading-[1.05] tracking-tight md:text-7xl">
+            Work that ships and{" "}
+            <span className="italic text-accent">delivers</span>.
+          </h1>
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink-soft">
+            From enterprise 3D analysis systems to award-winning platforms —
+            each project is built with purpose and measured by outcomes.
+          </p>
+        </Reveal>
+      </section>
 
-      <div className="container mx-auto px-4 py-12 relative z-10">
-        <section
-          className={`text-center mb-20 transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
-        >
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="text-gray-900">My </span>
-              <span className="bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent">
-                Portfolio
-              </span>
-            </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-gray-600 to-gray-800 mx-auto mb-8 rounded-full"></div>
-            <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-              A showcase of innovative solutions and impactful projects. From
-              enterprise applications to award-winning platforms, each project
-              represents a commitment to excellence, modern technologies, and
-              measurable results.
-            </p>
-            <div className="flex justify-center mt-8">
-              <a
-                href="https://github.com/Kojo-Brown"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors duration-200 transform hover:scale-105"
-              >
-                <span>View GitHub Profile</span>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-20">
-          <div
-            className={`transition-all duration-1000 delay-200 ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-2xl mx-auto">
-              {stats.map((stat, index) => (
-                <div
-                  key={index}
-                  className={`bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-gray-200 hover:border-gray-400 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-2 text-center ${
-                    isVisible
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-10"
-                  }`}
-                  style={{ animationDelay: `${0.3 + index * 0.1}s` }}
-                >
-                  <div className="text-xl font-bold text-gray-800 mb-1">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs text-gray-600">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-12">
-          <div
-            className={`transition-all duration-1000 delay-400 ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
-          >
-            <div className="flex justify-center gap-4 mb-8">
-              <button
-                onClick={() => setActiveTab("projects")}
-                className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                  activeTab === "projects"
-                    ? "bg-black text-white shadow-lg"
-                    : "bg-white/60 backdrop-blur-sm text-gray-700 hover:bg-gray-100 border border-gray-200"
-                }`}
-              >
-                Projects ({projects.length})
-              </button>
-              <button
-                onClick={() => setActiveTab("skills")}
-                className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                  activeTab === "skills"
-                    ? "bg-black text-white shadow-lg"
-                    : "bg-white/60 backdrop-blur-sm text-gray-700 hover:bg-gray-100 border border-gray-200"
-                }`}
-              >
-                Skills ({skills.length})
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {activeTab === "projects" && (
-          <>
-            <section
-              className={`mb-12 transition-all duration-1000 delay-600 ${
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
-              }`}
-            >
-              <div className="flex flex-wrap justify-center gap-4">
-                {projectCategories.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => setActiveCategory(category.id)}
-                    className={`px-4 py-2 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
-                      activeCategory === category.id
-                        ? "bg-black text-white shadow-lg"
-                        : "bg-white/60 backdrop-blur-sm text-gray-700 hover:bg-gray-100 border border-gray-200"
-                    }`}
-                  >
-                    <span>
-                      {category.name} ({category.count})
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </section>
-
-            <section className="mb-20">
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredProjects.map((project, index) => (
-                  <div
-                    key={project.id}
-                    className={`group bg-white/60 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-200 hover:border-gray-400 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-2 cursor-pointer ${
-                      isVisible
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-10"
-                    }`}
-                    style={{ animationDelay: `${0.8 + index * 0.1}s` }}
-                    onClick={() => setSelectedProject(project)}
-                  >
-                    <div className="relative h-48 bg-gradient-to-br from-gray-600 to-gray-800 overflow-hidden">
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-300"></div>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-white text-4xl font-bold">
-                          PROJECT
-                        </div>
-                      </div>
-                      <div className="absolute top-4 right-4 flex gap-2">
-                        <span className="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm capitalize">
-                          {project.category.replace("-", " ")}
-                        </span>
-                        <span
-                          className={`px-3 py-1 rounded-full text-sm ${
-                            project.status === "completed"
-                              ? "bg-green-500/20 text-green-100"
-                              : project.status === "in-progress"
-                              ? "bg-yellow-500/20 text-yellow-100"
-                              : "bg-blue-500/20 text-blue-100"
-                          }`}
-                        >
-                          {project.status}
-                        </span>
-                      </div>
-                      <div className="absolute bottom-4 left-4">
-                        <span className="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm">
-                          {project.year}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="p-6">
-                      <div className="flex items-start justify-between mb-2">
-                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-gray-700 transition-colors duration-300 line-clamp-1">
-                          {project.title}
-                        </h3>
-                        <div className="flex gap-2 ml-2">
-                          {project.githubUrl && (
-                            <div className="w-5 h-5 bg-gray-400 rounded opacity-50"></div>
-                          )}
-                          {project.liveUrl && (
-                            <div className="w-5 h-5 bg-green-400 rounded opacity-50"></div>
-                          )}
-                        </div>
-                      </div>
-
-                      {project.company && (
-                        <p className="text-gray-700 text-sm font-medium mb-2">
-                          {project.company}
-                        </p>
-                      )}
-
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                        {project.description}
-                      </p>
-
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.technologies.slice(0, 3).map((tech, i) => (
-                          <span
-                            key={i}
-                            className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-medium"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                        {project.technologies.length > 3 && (
-                          <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-medium">
-                            +{project.technologies.length - 3} more
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <div className="text-sm text-gray-500">
-                          {Object.entries(project.metrics)[0]?.[1] ||
-                            "View Details"}
-                        </div>
-                        <div className="text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
-                          <span className="text-sm font-medium">Explore →</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          </>
-        )}
-
-        {activeTab === "skills" && (
-          <section className="mb-20">
-            <div
-              className={`transition-all duration-1000 delay-600 ${
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
-              }`}
-            >
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {skills.map((skill, index) => (
-                  <div
-                    key={skill.name}
-                    className={`bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-gray-400 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-2 ${
-                      isVisible
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-10"
-                    }`}
-                    style={{ animationDelay: `${0.8 + index * 0.1}s` }}
-                  >
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-lg font-bold text-gray-900">
-                        {skill.name}
-                      </h3>
-                      <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-medium">
-                        {skill.category}
-                      </span>
-                    </div>
-
-                    <div className="text-sm text-gray-600">
-                      Used in{" "}
-                      <span className="font-semibold text-gray-800">
-                        {skill.projects}
-                      </span>{" "}
-                      projects
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {selectedProject && (
-          <div
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={closeModal}
-          >
-            <div
-              className="bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="relative h-64 bg-gradient-to-br from-gray-600 to-gray-800">
+      {/* Filters */}
+      <section className="mx-auto max-w-6xl px-6">
+        <Reveal>
+          <div className="flex flex-wrap gap-x-7 gap-y-3 border-b border-line pb-4">
+            {projectCategories
+              .filter((category) => category.count > 0 || category.id === "all")
+              .map((category) => (
                 <button
-                  onClick={closeModal}
-                  className="absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors duration-200 z-10"
-                  type="button"
-                  aria-label="Close modal"
+                  key={category.id}
+                  onClick={() => setActiveCategory(category.id)}
+                  className={`group relative pb-1 text-sm transition-colors duration-200 ${
+                    activeCategory === category.id
+                      ? "font-medium text-ink"
+                      : "text-ink-soft hover:text-ink"
+                  }`}
                 >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
+                  {category.name}
+                  <sup className="ml-1 font-mono text-[10px] text-accent">
+                    {category.count}
+                  </sup>
+                  <span
+                    className={`absolute -bottom-[17px] left-0 h-px w-full bg-ink transition-transform duration-300 ${
+                      activeCategory === category.id
+                        ? "scale-x-100"
+                        : "scale-x-0"
+                    }`}
+                  />
                 </button>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-white text-6xl font-bold">PROJECT</div>
-                </div>
-                <div className="absolute bottom-4 left-4 flex gap-2">
-                  {selectedProject.githubUrl && (
-                    <a
-                      href={selectedProject.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg hover:bg-white/30 transition-colors duration-200"
-                    >
-                      GitHub
-                    </a>
-                  )}
-                  {selectedProject.liveUrl && (
-                    <a
-                      href={selectedProject.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg hover:bg-white/30 transition-colors duration-200"
-                    >
-                      Live Demo
-                    </a>
-                  )}
-                </div>
-              </div>
+              ))}
+          </div>
+        </Reveal>
+      </section>
 
-              <div className="p-8">
-                <div className="mb-6">
-                  <div className="flex items-center gap-4 mb-4">
-                    <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm capitalize">
-                      {selectedProject.category.replace("-", " ")}
-                    </span>
-                    <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
-                      {selectedProject.year}
-                    </span>
-                    {selectedProject.company && (
-                      <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
-                        {selectedProject.company}
-                      </span>
-                    )}
-                  </div>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                    {selectedProject.title}
-                  </h2>
-                  <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                    {selectedProject.longDescription}
+      {/* Grid */}
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <div className="grid gap-6 md:grid-cols-2">
+          {filteredProjects.map((project, index) => (
+            <Reveal key={project.id} delay={(index % 2) * 80}>
+              <button
+                onClick={() => setSelectedProject(project)}
+                className="group flex h-full w-full flex-col rounded-lg border border-line bg-white p-8 text-left transition-all duration-300 hover:border-ink"
+              >
+                <div className="mb-8 flex items-start justify-between">
+                  <span className="font-mono text-xs text-ink-soft">
+                    {String(project.id).padStart(2, "0")}
+                  </span>
+                  <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-ink-soft">
+                    <span
+                      className={`h-1.5 w-1.5 rounded-full ${
+                        statusStyles[project.status] ?? "bg-ink-soft"
+                      }`}
+                    />
+                    {project.status.replace("-", " ")}
+                  </span>
+                </div>
+
+                <h3 className="font-display text-2xl font-medium tracking-tight transition-colors duration-300 group-hover:text-accent">
+                  {project.title}
+                </h3>
+                {project.company && (
+                  <p className="mt-1 text-sm text-ink-soft">
+                    {project.company} — {project.year}
                   </p>
-                </div>
+                )}
+                {!project.company && (
+                  <p className="mt-1 text-sm text-ink-soft">{project.year}</p>
+                )}
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-ink-soft">
+                  {project.description}
+                </p>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                  {Object.entries(selectedProject.metrics).map(
-                    ([key, value], index) => (
-                      <div
-                        key={index}
-                        className="bg-gray-50 rounded-lg p-4 text-center"
-                      >
-                        <div className="text-2xl font-bold text-gray-800">
-                          {value}
-                        </div>
-                        <div className="text-sm text-gray-500 capitalize">
-                          {key.replace(/([A-Z])/g, " $1").trim()}
-                        </div>
-                      </div>
-                    )
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {project.technologies.slice(0, 4).map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-full border border-line px-3 py-1 text-xs text-ink-soft"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {project.technologies.length > 4 && (
+                    <span className="rounded-full border border-line px-3 py-1 text-xs text-ink-soft">
+                      +{project.technologies.length - 4}
+                    </span>
                   )}
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-8 mb-8">
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">
-                      Key Features
-                    </h3>
-                    <ul className="space-y-2">
-                      {selectedProject.features.map((feature, i) => (
-                        <li key={i} className="flex items-start">
-                          <span className="text-gray-600 mr-2 mt-1.5 w-2 h-2 bg-gray-600 rounded-full flex-shrink-0"></span>
-                          <span className="text-gray-700">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">
-                      Achievements
-                    </h3>
-                    <ul className="space-y-2">
-                      {selectedProject.achievements.map((achievement, i) => (
-                        <li key={i} className="flex items-start">
-                          <span className="text-green-600 mr-2 mt-1.5 w-2 h-2 bg-green-600 rounded-full flex-shrink-0"></span>
-                          <span className="text-gray-700">{achievement}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                <div className="mt-8 flex items-center justify-between border-t border-line pt-5">
+                  <span className="text-sm font-medium">Case study</span>
+                  <ArrowUpRight
+                    size={18}
+                    className="text-ink-soft transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
+                  />
                 </div>
+              </button>
+            </Reveal>
+          ))}
+        </div>
+      </section>
 
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">
-                    Technologies Used
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProject.technologies.map((tech, i) => (
-                      <span
-                        key={i}
-                        className="bg-gray-100 text-gray-700 px-3 py-2 rounded-lg text-sm font-medium"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+      {/* Impact band */}
+      <section className="bg-ink text-paper">
+        <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
+          <Reveal>
+            <p className="label-mono !text-paper/50 mb-4">Impact</p>
+            <h2 className="font-display max-w-2xl text-3xl font-medium tracking-tight md:text-4xl">
+              Built with purpose, measured by results
+            </h2>
+          </Reveal>
+          <div className="mt-14 grid grid-cols-2 gap-10 md:grid-cols-4">
+            {[
+              { value: "35%", label: "Manufacturing errors reduced" },
+              { value: "40%", label: "User engagement improved" },
+              { value: "25%", label: "Customer retention increase" },
+              { value: "50%", label: "Faster load times" },
+            ].map((stat, index) => (
+              <Reveal key={stat.label} delay={index * 80}>
+                <p className="font-display text-4xl font-medium md:text-5xl">
+                  {stat.value}
+                </p>
+                <p className="mt-2 text-sm text-paper/50">{stat.label}</p>
+              </Reveal>
+            ))}
           </div>
-        )}
+        </div>
+      </section>
 
-        <section
-          className={`transition-all duration-1000 delay-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+      {/* Project modal */}
+      {selectedProject && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/60 p-4 backdrop-blur-sm"
+          onClick={() => setSelectedProject(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={selectedProject.title}
         >
-          <div className="max-w-4xl mx-auto bg-gradient-to-r from-gray-800 to-black rounded-2xl p-8 text-white text-center">
-            <h2 className="text-3xl font-bold mb-6">Project Impact</h2>
-            <p className="text-lg mb-8 opacity-90">
-              Every project is built with purpose, precision, and a commitment
-              to delivering measurable results that drive business growth and
-              user satisfaction.
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
-              <div>
-                <div className="text-4xl font-bold mb-2">8+</div>
-                <div className="text-gray-300">Projects Delivered</div>
+          <div
+            className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-lg bg-paper"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative bg-ink p-8 text-paper md:p-10">
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full border border-line-dark text-paper/70 transition-colors duration-200 hover:text-paper"
+                aria-label="Close"
+              >
+                <X size={16} />
+              </button>
+
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[11px] uppercase tracking-wider text-paper/50">
+                <span>{selectedProject.category.replace("-", " ")}</span>
+                <span>·</span>
+                <span>{selectedProject.year}</span>
+                {selectedProject.company && (
+                  <>
+                    <span>·</span>
+                    <span>{selectedProject.company}</span>
+                  </>
+                )}
               </div>
-              <div>
-                <div className="text-4xl font-bold mb-2">40%</div>
-                <div className="text-gray-300">Avg. Improvement</div>
+              <h2 className="font-display mt-4 max-w-xl text-3xl font-medium tracking-tight md:text-4xl">
+                {selectedProject.title}
+              </h2>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                {selectedProject.liveUrl && (
+                  <a
+                    href={selectedProject.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-paper px-5 py-2.5 text-sm font-medium text-ink transition-colors duration-200 hover:bg-paper/90"
+                  >
+                    <Globe size={15} />
+                    Live site
+                  </a>
+                )}
+                {selectedProject.githubUrl && (
+                  <a
+                    href={selectedProject.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-line-dark px-5 py-2.5 text-sm font-medium text-paper transition-colors duration-200 hover:border-paper"
+                  >
+                    <Github size={15} />
+                    Source
+                  </a>
+                )}
               </div>
-              <div>
-                <div className="text-4xl font-bold mb-2">15+</div>
-                <div className="text-gray-300">Technologies</div>
+            </div>
+
+            <div className="p-8 md:p-10">
+              <p className="text-base leading-relaxed text-ink-soft">
+                {selectedProject.longDescription}
+              </p>
+
+              <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-4">
+                {Object.entries(selectedProject.metrics).map(([key, value]) => (
+                  <div key={key} className="bg-white p-5">
+                    <p className="font-display text-xl font-medium">{value}</p>
+                    <p className="mt-1 text-xs capitalize text-ink-soft">
+                      {key.replace(/([A-Z])/g, " $1").trim()}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-10 grid gap-10 md:grid-cols-2">
+                <div>
+                  <p className="label-mono mb-5">Key features</p>
+                  <ul className="space-y-3">
+                    {selectedProject.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-3">
+                        <span className="mt-2.5 h-px w-4 shrink-0 bg-accent" />
+                        <span className="text-sm leading-relaxed text-ink-soft">
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <p className="label-mono mb-5">Outcomes</p>
+                  <ul className="space-y-3">
+                    {selectedProject.achievements.map((achievement) => (
+                      <li key={achievement} className="flex items-start gap-3">
+                        <span className="mt-2.5 h-px w-4 shrink-0 bg-accent" />
+                        <span className="text-sm leading-relaxed text-ink-soft">
+                          {achievement}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-10 border-t border-line pt-8">
+                <p className="label-mono mb-5">Stack</p>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProject.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-full border border-line px-3 py-1.5 text-xs text-ink-soft"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </section>
-      </div>
+        </div>
+      )}
     </div>
   );
 };

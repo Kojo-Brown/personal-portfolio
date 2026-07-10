@@ -1,52 +1,111 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import emailjs from "@emailjs/browser";
+import {
+  ArrowUpRight,
+  CheckCircle2,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+  XCircle,
+  type LucideIcon,
+} from "lucide-react";
+import Reveal from "@/components/reveal";
+
+interface ContactChannel {
+  title: string;
+  value: string;
+  action: string;
+  icon: LucideIcon;
+}
+
+const contactChannels: ContactChannel[] = [
+  {
+    title: "Email",
+    value: "brown.nicholas.darko@gmail.com",
+    action: "mailto:brown.nicholas.darko@gmail.com",
+    icon: Mail,
+  },
+  {
+    title: "Phone",
+    value: "203.747.6460",
+    action: "tel:+12037476460",
+    icon: Phone,
+  },
+  {
+    title: "Location",
+    value: "New Haven, CT, USA",
+    action: "https://maps.google.com/?q=New+Haven,CT",
+    icon: MapPin,
+  },
+  {
+    title: "LinkedIn",
+    value: "nicholasdarkobrown",
+    action: "https://www.linkedin.com/in/nicholasdarkobrown/",
+    icon: Linkedin,
+  },
+];
+
+const projectTypes = [
+  "Frontend Development",
+  "Backend Development",
+  "Full-Stack Application",
+  "Enterprise Solution",
+  "3D Web Application",
+  "Consulting",
+  "Other",
+];
+
+const budgetRanges = [
+  "Under $2,500",
+  "$2,500 - $5,000",
+  "$5,000 - $10,000",
+  "$10,000 - $25,000",
+  "$25,000+",
+  "Let's discuss",
+];
+
+const timelines = [
+  "ASAP (Rush job)",
+  "1-2 weeks",
+  "1-2 months",
+  "3-6 months",
+  "6+ months",
+  "Flexible",
+];
+
+const inputClasses =
+  "w-full rounded-md border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-soft/60 transition-colors duration-200 focus:border-ink focus:outline-none";
+
+const emptyForm = {
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+  projectType: "",
+  budget: "",
+  timeline: "",
+};
 
 const Contact = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isVisible, setIsVisible] = useState(false);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-    projectType: "",
-    budget: "",
-    timeline: "",
-  });
+  const [formData, setFormData] = useState(emptyForm);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
 
   useEffect(() => {
-    setIsVisible(true);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100,
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  useEffect(() => {
     if (submitStatus === "success" || submitStatus === "error") {
-      const timer = setTimeout(() => {
-        setSubmitStatus("");
-      }, 5000);
+      const timer = setTimeout(() => setSubmitStatus(""), 5000);
       return () => clearTimeout(timer);
     }
   }, [submitStatus]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async () => {
@@ -113,15 +172,7 @@ This inquiry was submitted through the Contact page of your portfolio.
 
       if (response.status === 200) {
         setSubmitStatus("success");
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-          projectType: "",
-          budget: "",
-          timeline: "",
-        });
+        setFormData(emptyForm);
       } else {
         setSubmitStatus("error");
       }
@@ -133,207 +184,149 @@ This inquiry was submitted through the Contact page of your portfolio.
     }
   };
 
-  const contactInfo = [
-    {
-      title: "Email",
-      value: "brown.nicholas.darko@gmail.com",
-      action: "mailto:brown.nicholas.darko@gmail.com",
-    },
-    {
-      title: "Phone",
-      value: "203.747.6460",
-      action: "tel:+12037476460",
-    },
-    {
-      title: "Location",
-      value: "New Haven, CT, USA",
-      action: "https://maps.google.com/?q=New+Haven,CT",
-    },
-    {
-      title: "LinkedIn",
-      value: "Nicholas Darko Brown",
-      action: "https://linkedin.com/in/NicholasDarkoBrown",
-    },
-  ];
-
-  const projectTypes = [
-    "Frontend Development",
-    "Backend Development",
-    "Full-Stack Application",
-    "Enterprise Solution",
-    "3D Web Application",
-    "Consulting",
-    "Other",
-  ];
-
-  const budgetRanges = [
-    "Under $2,500",
-    "$2,500 - $5,000",
-    "$5,000 - $10,000",
-    "$10,000 - $25,000",
-    "$25,000+",
-    "Let's discuss",
-  ];
-
-  const timelines = [
-    "ASAP (Rush job)",
-    "1-2 weeks",
-    "1-2 months",
-    "3-6 months",
-    "6+ months",
-    "Flexible",
-  ];
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          className="absolute w-96 h-96 bg-gray-100 rounded-full opacity-10 animate-pulse"
-          style={{
-            top: "5%",
-            right: "10%",
-            transform: `translate(${mousePosition.x * 0.02}px, ${
-              mousePosition.y * 0.02
-            }px)`,
-            transition: "transform 0.1s ease-out",
-          }}
-        />
-        <div
-          className="absolute w-64 h-64 bg-gray-200 rounded-full opacity-15"
-          style={{
-            top: "70%",
-            left: "5%",
-            transform: `translate(${mousePosition.x * -0.01}px, ${
-              mousePosition.y * -0.01
-            }px)`,
-            transition: "transform 0.1s ease-out",
-          }}
-        />
-        <div
-          className="absolute w-48 h-48 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full opacity-10"
-          style={{
-            top: "40%",
-            right: "15%",
-            transform: `translate(${mousePosition.x * 0.015}px, ${
-              mousePosition.y * 0.015
-            }px)`,
-            transition: "transform 0.1s ease-out",
-          }}
-        />
-      </div>
+    <div>
+      {/* Header */}
+      <section className="mx-auto max-w-6xl px-6 pb-16 pt-20 md:pt-28">
+        <Reveal>
+          <p className="label-mono mb-6">Contact</p>
+          <h1 className="font-display max-w-3xl text-5xl font-medium leading-[1.05] tracking-tight md:text-7xl">
+            Let's make it{" "}
+            <span className="italic text-accent">happen</span>.
+          </h1>
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink-soft">
+            Tell me about your project — scope, goals, constraints. I typically
+            respond within 4–6 hours on business days.
+          </p>
+        </Reveal>
+      </section>
 
-      <div className="container mx-auto px-4 py-12 relative z-10">
-        <section
-          className={`text-center mb-16 transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
-        >
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="text-gray-900">Let's </span>
-              <span className="bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent">
-                Connect
-              </span>
-            </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-gray-600 to-gray-800 mx-auto mb-8 rounded-full"></div>
-            <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-              Ready to bring your ideas to life? Let's discuss your project and
-              create something amazing together. I'm here to help turn your
-              vision into reality.
-            </p>
-          </div>
-        </section>
-
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12">
-          <section
-            className={`transition-all duration-1000 delay-200 ${
-              isVisible
-                ? "opacity-100 translate-x-0"
-                : "opacity-0 -translate-x-10"
-            }`}
-          >
-            <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-200 shadow-xl">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Send Me a Message
-              </h2>
+      <section className="mx-auto max-w-6xl px-6 pb-24">
+        <div className="grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-20">
+          {/* Form */}
+          <Reveal>
+            <div className="rounded-lg border border-line bg-white p-8 md:p-10">
+              <p className="label-mono mb-8">Send a message</p>
 
               <div className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid gap-6 md:grid-cols-2">
                   <div>
-                    <label className="block text-gray-700 font-medium mb-2">
+                    <label
+                      htmlFor="name"
+                      className="mb-2 block text-sm font-medium"
+                    >
                       Name *
                     </label>
                     <input
+                      id="name"
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder="Your full name"
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
+                      className={inputClasses}
                     />
                   </div>
                   <div>
-                    <label className="block text-gray-700 font-medium mb-2">
+                    <label
+                      htmlFor="email"
+                      className="mb-2 block text-sm font-medium"
+                    >
                       Email *
                     </label>
                     <input
+                      id="email"
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="your.email@example.com"
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
+                      className={inputClasses}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 font-medium mb-2">
+                  <label
+                    htmlFor="subject"
+                    className="mb-2 block text-sm font-medium"
+                  >
                     Subject
                   </label>
                   <input
+                    id="subject"
                     type="text"
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
                     placeholder="Brief description of your project"
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
+                    className={inputClasses}
                   />
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid gap-6 md:grid-cols-3">
                   <div>
-                    <label className="block text-gray-700 font-medium mb-2">
-                      Project Type
+                    <label
+                      htmlFor="projectType"
+                      className="mb-2 block text-sm font-medium"
+                    >
+                      Project type
                     </label>
                     <select
+                      id="projectType"
                       name="projectType"
                       value={formData.projectType}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
+                      className={inputClasses}
                     >
-                      <option value="">Select project type</option>
-                      {projectTypes.map((type, index) => (
-                        <option key={index} value={type}>
+                      <option value="">Select</option>
+                      {projectTypes.map((type) => (
+                        <option key={type} value={type}>
                           {type}
                         </option>
                       ))}
                     </select>
                   </div>
                   <div>
-                    <label className="block text-gray-700 font-medium mb-2">
-                      Budget Range
+                    <label
+                      htmlFor="budget"
+                      className="mb-2 block text-sm font-medium"
+                    >
+                      Budget
                     </label>
                     <select
+                      id="budget"
                       name="budget"
                       value={formData.budget}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
+                      className={inputClasses}
                     >
-                      <option value="">Select budget range</option>
-                      {budgetRanges.map((range, index) => (
-                        <option key={index} value={range}>
+                      <option value="">Select</option>
+                      {budgetRanges.map((range) => (
+                        <option key={range} value={range}>
                           {range}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="timeline"
+                      className="mb-2 block text-sm font-medium"
+                    >
+                      Timeline
+                    </label>
+                    <select
+                      id="timeline"
+                      name="timeline"
+                      value={formData.timeline}
+                      onChange={handleInputChange}
+                      className={inputClasses}
+                    >
+                      <option value="">Select</option>
+                      {timelines.map((timeline) => (
+                        <option key={timeline} value={timeline}>
+                          {timeline}
                         </option>
                       ))}
                     </select>
@@ -341,53 +334,48 @@ This inquiry was submitted through the Contact page of your portfolio.
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 font-medium mb-2">
-                    Timeline
-                  </label>
-                  <select
-                    name="timeline"
-                    value={formData.timeline}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
+                  <label
+                    htmlFor="message"
+                    className="mb-2 block text-sm font-medium"
                   >
-                    <option value="">When do you need this completed?</option>
-                    {timelines.map((timeline, index) => (
-                      <option key={index} value={timeline}>
-                        {timeline}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-gray-700 font-medium mb-2">
                     Message *
                   </label>
                   <textarea
+                    id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
                     placeholder="Tell me about your project, goals, and any specific requirements..."
                     rows={5}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent bg-white/80 backdrop-blur-sm resize-none"
+                    className={`${inputClasses} resize-none`}
                   />
                 </div>
 
                 <button
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className={`w-full font-semibold py-4 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 ${
+                  className={`group inline-flex w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium transition-colors duration-200 ${
                     isSubmitting
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-black hover:bg-gray-800 text-white shadow-lg hover:shadow-xl"
+                      ? "cursor-not-allowed bg-ink/40 text-paper"
+                      : "bg-ink text-paper hover:bg-ink/85"
                   }`}
                 >
-                  {isSubmitting ? "Sending Message..." : "Send Message"}
+                  {isSubmitting ? "Sending..." : "Send message"}
+                  {!isSubmitting && (
+                    <ArrowUpRight
+                      size={16}
+                      className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    />
+                  )}
                 </button>
 
                 {submitStatus === "success" && (
-                  <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                    <p className="text-green-800 text-sm">
+                  <div className="flex items-start gap-3 rounded-md border border-emerald-200 bg-emerald-50 p-4">
+                    <CheckCircle2
+                      size={18}
+                      className="mt-0.5 shrink-0 text-emerald-600"
+                    />
+                    <p className="text-sm text-emerald-800">
                       Message sent successfully! I'll review your project
                       details and get back to you within 24 hours.
                     </p>
@@ -395,110 +383,97 @@ This inquiry was submitted through the Contact page of your portfolio.
                 )}
 
                 {submitStatus === "error" && (
-                  <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                    <p className="text-red-800 text-sm">
-                      Failed to send message. Please ensure all required fields
-                      are filled or email me directly.
+                  <div className="flex items-start gap-3 rounded-md border border-red-200 bg-red-50 p-4">
+                    <XCircle
+                      size={18}
+                      className="mt-0.5 shrink-0 text-red-600"
+                    />
+                    <p className="text-sm text-red-800">
+                      Failed to send message. Please make sure all required
+                      fields are filled, or email me directly.
                     </p>
                   </div>
                 )}
               </div>
             </div>
-          </section>
+          </Reveal>
 
-          <section
-            className={`transition-all duration-1000 delay-400 ${
-              isVisible
-                ? "opacity-100 translate-x-0"
-                : "opacity-0 translate-x-10"
-            }`}
-          >
-            <div className="space-y-8">
-              <div className="grid gap-4">
-                {contactInfo.map((info, index) => (
-                  <a
-                    key={index}
-                    href={info.action}
-                    target={info.action.startsWith("http") ? "_blank" : "_self"}
-                    rel={
-                      info.action.startsWith("http")
-                        ? "noopener noreferrer"
-                        : ""
-                    }
-                    className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-gray-400 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1 block"
-                  >
-                    <div className="flex items-center">
-                      <div className="w-12 h-12 bg-gradient-to-br from-gray-600 to-gray-800 rounded-lg flex items-center justify-center mr-4">
-                        <span className="text-white font-bold text-sm">
-                          {info.title.substring(0, 2).toUpperCase()}
-                        </span>
+          {/* Sidebar */}
+          <div className="space-y-6">
+            <Reveal delay={100}>
+              <div className="rounded-lg border border-line bg-white">
+                {contactChannels.map((channel, index) => {
+                  const Icon = channel.icon;
+                  return (
+                    <a
+                      key={channel.title}
+                      href={channel.action}
+                      target={
+                        channel.action.startsWith("http") ? "_blank" : "_self"
+                      }
+                      rel={
+                        channel.action.startsWith("http")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
+                      className={`group flex items-center gap-4 p-5 transition-colors duration-200 hover:bg-ink/[0.03] ${
+                        index > 0 ? "border-t border-line" : ""
+                      }`}
+                    >
+                      <Icon size={18} className="shrink-0 text-ink-soft" />
+                      <div className="min-w-0">
+                        <p className="text-xs text-ink-soft">{channel.title}</p>
+                        <p className="truncate text-sm font-medium">
+                          {channel.value}
+                        </p>
                       </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900">
-                          {info.title}
-                        </h3>
-                        <p className="text-gray-600">{info.value}</p>
-                      </div>
+                      <ArrowUpRight
+                        size={15}
+                        className="ml-auto shrink-0 text-ink-soft opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                      />
+                    </a>
+                  );
+                })}
+              </div>
+            </Reveal>
+
+            <Reveal delay={200}>
+              <div className="rounded-lg bg-ink p-7 text-paper">
+                <p className="label-mono !text-paper/50 mb-5">Availability</p>
+                <div className="space-y-4">
+                  {[
+                    { label: "New projects", status: "Available", ok: true },
+                    { label: "Consulting", status: "Available", ok: true },
+                    { label: "Rush projects", status: "Limited", ok: false },
+                  ].map((item) => (
+                    <div
+                      key={item.label}
+                      className="flex items-center justify-between"
+                    >
+                      <span className="text-sm text-paper/70">
+                        {item.label}
+                      </span>
+                      <span className="flex items-center gap-2 text-sm">
+                        <span
+                          className={`h-1.5 w-1.5 rounded-full ${
+                            item.ok ? "bg-emerald-400" : "bg-amber-400"
+                          }`}
+                        />
+                        {item.status}
+                      </span>
                     </div>
-                  </a>
-                ))}
-              </div>
-
-              <div className="bg-gradient-to-r from-gray-800 to-black rounded-2xl p-8 text-white">
-                <h3 className="text-2xl font-bold mb-4">Quick Contact</h3>
-                <p className="mb-6 opacity-90">
-                  Need immediate assistance? Feel free to reach out directly via
-                  email or phone. I typically respond within a few hours during
-                  business days.
-                </p>
-                <div className="space-y-3">
-                  <div className="flex items-center">
-                    <span className="mr-3 text-gray-300">Response time:</span>
-                    <span>Usually within 4-6 hours</span>
-                  </div>
-                  <div className="flex items-center">
-                    <span className="mr-3 text-gray-300">Timezone:</span>
-                    <span>EST (UTC-5)</span>
-                  </div>
-                  <div className="flex items-center">
-                    <span className="mr-3 text-gray-300">Available:</span>
-                    <span>Video calls by appointment</span>
-                  </div>
+                  ))}
+                </div>
+                <div className="mt-6 space-y-2 border-t border-line-dark pt-5 text-sm text-paper/50">
+                  <p>Response time: usually 4–6 hours</p>
+                  <p>Timezone: EST (UTC−5)</p>
+                  <p>Video calls by appointment</p>
                 </div>
               </div>
-
-              <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">
-                  Current Availability
-                </h3>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-600">New Projects</span>
-                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
-                      Available
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-600">Consulting</span>
-                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
-                      Available
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-600">Rush Projects</span>
-                    <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">
-                      Limited
-                    </span>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-500 mt-4">
-                  Last updated: July 2025
-                </p>
-              </div>
-            </div>
-          </section>
+            </Reveal>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

@@ -1,3 +1,19 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  ArrowUpRight,
+  Boxes,
+  Building2,
+  Code2,
+  Database,
+  Layers,
+  MessagesSquare,
+  SearchCode,
+  Server,
+  X,
+  type LucideIcon,
+} from "lucide-react";
+import Reveal from "@/components/reveal";
 import {
   achievements,
   categories,
@@ -5,26 +21,35 @@ import {
   services,
 } from "@/lib/constants";
 import type { Service } from "@/types";
-import { useEffect, useState } from "react";
+
+const serviceIcons: Record<number, LucideIcon> = {
+  1: Code2,
+  2: Server,
+  3: Layers,
+  4: Building2,
+  5: Boxes,
+  6: Database,
+  7: SearchCode,
+  8: MessagesSquare,
+};
 
 const Services = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isVisible, setIsVisible] = useState(false);
   const [activeService, setActiveService] = useState<Service | null>(null);
   const [activeTab, setActiveTab] = useState("services");
 
   useEffect(() => {
-    setIsVisible(true);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100,
-      });
+    document.body.style.overflow = activeService ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
     };
+  }, [activeService]);
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActiveService(null);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
   const filteredServices =
@@ -33,351 +58,251 @@ const Services = () => {
       : services.filter((s) => s.category === activeTab);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          className="absolute w-96 h-96 bg-gray-100 rounded-full opacity-10 animate-pulse"
-          style={{
-            top: "5%",
-            right: "10%",
-            transform: `translate(${mousePosition.x * 0.02}px, ${
-              mousePosition.y * 0.02
-            }px)`,
-            transition: "transform 0.1s ease-out",
-          }}
-        />
-        <div
-          className="absolute w-64 h-64 bg-gray-200 rounded-full opacity-15"
-          style={{
-            top: "70%",
-            left: "5%",
-            transform: `translate(${mousePosition.x * -0.01}px, ${
-              mousePosition.y * -0.01
-            }px)`,
-            transition: "transform 0.1s ease-out",
-          }}
-        />
-        <div
-          className="absolute w-48 h-48 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full opacity-10"
-          style={{
-            top: "40%",
-            right: "15%",
-            transform: `translate(${mousePosition.x * 0.015}px, ${
-              mousePosition.y * 0.015
-            }px)`,
-            transition: "transform 0.1s ease-out",
-          }}
-        />
+    <div>
+      {/* Header */}
+      <section className="mx-auto max-w-6xl px-6 pb-16 pt-20 md:pt-28">
+        <Reveal>
+          <p className="label-mono mb-6">Services</p>
+          <h1 className="font-display max-w-3xl text-5xl font-medium leading-[1.05] tracking-tight md:text-7xl">
+            From idea to{" "}
+            <span className="italic text-accent">production</span>.
+          </h1>
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink-soft">
+            Focused engineering services backed by enterprise experience —
+            delivering software that drives growth and holds up under real
+            traffic.
+          </p>
+        </Reveal>
+      </section>
 
-        {/* Floating Elements */}
-        {[...Array(15)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-3 h-3 bg-gray-300 rounded-full opacity-30"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              transform: `translate(${
-                mousePosition.x * (0.01 + Math.random() * 0.02)
-              }px, ${mousePosition.y * (0.01 + Math.random() * 0.02)}px)`,
-              transition: "transform 0.1s ease-out",
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="container mx-auto px-4 py-12 relative z-10">
-        <section
-          className={`text-center mb-20 transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
-        >
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="text-gray-900">Professional </span>
-              <span className="bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent">
-                Services
-              </span>
-            </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-gray-600 to-gray-800 mx-auto mb-8 rounded-full"></div>
-            <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-              Transforming business ideas into powerful digital solutions. With
-              proven experience and expertise in modern technologies, I deliver
-              results that drive growth and exceed expectations.
-            </p>
-          </div>
-        </section>
-
-        <section className="mb-20">
-          <div
-            className={`transition-all duration-1000 delay-200 ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
-          >
-            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
-              <span className="text-gray-900">Proven </span>
-              <span className="text-gray-700">Results</span>
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-6xl mx-auto">
-              {achievements.map((achievement, index) => (
-                <div
-                  key={index}
-                  className={`bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-gray-400 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-2 text-center ${
-                    isVisible
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-10"
-                  }`}
-                  style={{ animationDelay: `${0.3 + index * 0.1}s` }}
-                >
-                  <div className="text-2xl font-bold text-gray-800 mb-2">
-                    {achievement.metric}
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    {achievement.description}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-12">
-          <div
-            className={`transition-all duration-1000 delay-400 ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
-          >
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => setActiveTab(category.id)}
-                  className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
-                    activeTab === category.id
-                      ? "bg-black text-white shadow-lg"
-                      : "bg-white/60 backdrop-blur-sm text-gray-700 hover:bg-gray-100 border border-gray-200"
-                  }`}
-                >
-                  <span>{category.name}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-20">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredServices.map((service, index) => (
-              <div
-                key={service.id}
-                className={`group bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-gray-400 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-2 cursor-pointer ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
-                }`}
-                style={{ animationDelay: `${0.6 + index * 0.1}s` }}
-                onClick={() => setActiveService(service)}
-              >
-                <div className="mb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-gray-600 to-gray-800 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-white font-bold text-lg">
-                      {service.title.substring(0, 2).toUpperCase()}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors duration-300">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                    {service.description}
-                  </p>
-                </div>
-
-                <div className="pt-2 border-t border-gray-100">
-                  <span className="text-gray-700 group-hover:text-gray-900 transition-colors duration-300 text-sm font-medium">
-                    View Details →
-                  </span>
-                </div>
+      {/* Proven results */}
+      <section className="mx-auto max-w-6xl px-6 pb-20">
+        <Reveal>
+          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-3 lg:grid-cols-6">
+            {achievements.map((achievement) => (
+              <div key={achievement.description} className="bg-white p-6">
+                <p className="font-display text-3xl font-medium">
+                  {achievement.metric}
+                </p>
+                <p className="mt-2 text-xs leading-relaxed text-ink-soft">
+                  {achievement.description}
+                </p>
               </div>
             ))}
           </div>
-        </section>
+        </Reveal>
+      </section>
 
-        {activeService && (
-          <div
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => setActiveService(null)}
-          >
-            <div
-              className="bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="relative bg-gradient-to-r from-gray-800 to-black p-8 text-white">
+      {/* Filters */}
+      <section className="mx-auto max-w-6xl px-6">
+        <Reveal>
+          <div className="flex flex-wrap gap-x-7 gap-y-3 border-b border-line pb-4">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setActiveTab(category.id)}
+                className={`relative pb-1 text-sm transition-colors duration-200 ${
+                  activeTab === category.id
+                    ? "font-medium text-ink"
+                    : "text-ink-soft hover:text-ink"
+                }`}
+              >
+                {category.name}
+                <span
+                  className={`absolute -bottom-[17px] left-0 h-px w-full bg-ink transition-transform duration-300 ${
+                    activeTab === category.id ? "scale-x-100" : "scale-x-0"
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Services grid */}
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {filteredServices.map((service, index) => {
+            const Icon = serviceIcons[service.id] ?? Code2;
+            return (
+              <Reveal key={service.id} delay={(index % 4) * 60}>
                 <button
-                  onClick={() => setActiveService(null)}
-                  className="absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors duration-200"
+                  onClick={() => setActiveService(service)}
+                  className="group flex h-full w-full flex-col rounded-lg border border-line bg-white p-7 text-left transition-all duration-300 hover:border-ink"
                 >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </button>
-                <div className="flex items-center mb-4">
-                  <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mr-6">
-                    <span className="text-white font-bold text-2xl">
-                      {activeService.title.substring(0, 2).toUpperCase()}
+                  <Icon
+                    size={22}
+                    className="text-ink-soft transition-colors duration-300 group-hover:text-accent"
+                  />
+                  <h3 className="font-display mt-5 text-lg font-medium tracking-tight">
+                    {service.title}
+                  </h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">
+                    {service.description}
+                  </p>
+                  <div className="mt-6 flex items-center justify-between border-t border-line pt-4">
+                    <span className="font-mono text-xs text-ink-soft">
+                      {service.timeline}
                     </span>
+                    <ArrowUpRight
+                      size={16}
+                      className="text-ink-soft transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
+                    />
                   </div>
-                  <div>
-                    <h2 className="text-3xl font-bold mb-2">
-                      {activeService.title}
-                    </h2>
-                    <p className="text-gray-100 text-lg">
-                      {activeService.description}
-                    </p>
-                    <p className="text-gray-200 text-sm mt-2">
-                      {activeService.experience}
-                    </p>
-                  </div>
-                </div>
-              </div>
+                </button>
+              </Reveal>
+            );
+          })}
+        </div>
+      </section>
 
-              <div className="p-8">
-                <div className="mb-8">
-                  <p className="text-gray-600 text-lg leading-relaxed">
-                    {activeService.longDescription}
+      {/* Process */}
+      <section className="bg-ink text-paper">
+        <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+          <Reveal>
+            <p className="label-mono !text-paper/50 mb-4">How I work</p>
+            <h2 className="font-display max-w-2xl text-3xl font-medium tracking-tight md:text-5xl">
+              A process built on clarity
+            </h2>
+          </Reveal>
+
+          <div className="mt-16 border-t border-line-dark">
+            {developmentProcess.map((step, index) => (
+              <Reveal key={step.step} delay={index * 60}>
+                <div className="grid items-baseline gap-2 border-b border-line-dark py-7 md:grid-cols-[80px_280px_1fr_auto] md:gap-8">
+                  <span className="font-mono text-sm text-accent">
+                    {step.step}
+                  </span>
+                  <h3 className="font-display text-xl font-medium tracking-tight">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-paper/60">
+                    {step.description}
+                  </p>
+                  <span className="hidden font-mono text-xs text-paper/40 md:block">
+                    {step.duration}
+                  </span>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal>
+            <div className="mt-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+              <p className="max-w-xl text-lg leading-relaxed text-paper/70">
+                Ready to start? Let's discuss your requirements and scope the
+                right solution for your goals and budget.
+              </p>
+              <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
+                <Link
+                  to="/contact"
+                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-paper px-6 py-3 text-sm font-medium text-ink transition-colors duration-200 hover:bg-paper/90"
+                >
+                  Get a free consultation
+                  <ArrowUpRight
+                    size={16}
+                    className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  />
+                </Link>
+                <a
+                  href="mailto:brown.nicholas.darko@gmail.com"
+                  className="inline-flex items-center justify-center rounded-full border border-line-dark px-6 py-3 text-sm font-medium text-paper transition-colors duration-200 hover:border-paper"
+                >
+                  Email directly
+                </a>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Service modal */}
+      {activeService && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/60 p-4 backdrop-blur-sm"
+          onClick={() => setActiveService(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={activeService.title}
+        >
+          <div
+            className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-lg bg-paper"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative bg-ink p-8 text-paper md:p-10">
+              <button
+                onClick={() => setActiveService(null)}
+                className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full border border-line-dark text-paper/70 transition-colors duration-200 hover:text-paper"
+                aria-label="Close"
+              >
+                <X size={16} />
+              </button>
+              <p className="font-mono text-[11px] uppercase tracking-wider text-paper/50">
+                {activeService.category}
+              </p>
+              <h2 className="font-display mt-3 max-w-xl text-3xl font-medium tracking-tight md:text-4xl">
+                {activeService.title}
+              </h2>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-paper/60">
+                {activeService.experience}
+              </p>
+              <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+                <div>
+                  <p className="font-mono text-[11px] uppercase tracking-wider text-paper/40">
+                    Pricing
+                  </p>
+                  <p className="mt-1 text-sm font-medium">
+                    {activeService.pricing}
                   </p>
                 </div>
+                <div>
+                  <p className="font-mono text-[11px] uppercase tracking-wider text-paper/40">
+                    Timeline
+                  </p>
+                  <p className="mt-1 text-sm font-medium">
+                    {activeService.timeline}
+                  </p>
+                </div>
+              </div>
+            </div>
 
-                <div className="grid md:grid-cols-2 gap-8 mb-8">
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">
-                      What's Included
-                    </h3>
-                    <ul className="space-y-3">
-                      {activeService.features.map((feature, i) => (
-                        <li key={i} className="flex items-start">
-                          <span className="text-gray-600 mr-3 mt-1 w-2 h-2 bg-gray-600 rounded-full flex-shrink-0"></span>
-                          <span className="text-gray-700">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+            <div className="p-8 md:p-10">
+              <p className="text-base leading-relaxed text-ink-soft">
+                {activeService.longDescription}
+              </p>
 
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">
-                      Technologies & Tools
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {activeService.technologies.map((tech, i) => (
-                        <span
-                          key={i}
-                          className="bg-gray-100 text-gray-700 px-3 py-2 rounded-lg text-sm font-medium"
-                        >
-                          {tech}
+              <div className="mt-10 grid gap-10 md:grid-cols-2">
+                <div>
+                  <p className="label-mono mb-5">What's included</p>
+                  <ul className="space-y-3">
+                    {activeService.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-3">
+                        <span className="mt-2.5 h-px w-4 shrink-0 bg-accent" />
+                        <span className="text-sm leading-relaxed text-ink-soft">
+                          {feature}
                         </span>
-                      ))}
-                    </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <p className="label-mono mb-5">Technologies & tools</p>
+                  <div className="flex flex-wrap gap-2">
+                    {activeService.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded-full border border-line px-3 py-1.5 text-xs text-ink-soft"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        )}
-
-        <section className="mb-20">
-          <div
-            className={`transition-all duration-1000 delay-800 ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-              <span className="text-gray-900">My Development </span>
-              <span className="text-gray-700">Process</span>
-            </h2>
-
-            <div className="max-w-6xl mx-auto">
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {developmentProcess.map((step, index) => (
-                  <div
-                    key={index}
-                    className={`relative bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:border-gray-400 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1 ${
-                      isVisible
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-10"
-                    }`}
-                    style={{ animationDelay: `${1 + index * 0.1}s` }}
-                  >
-                    <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-gray-600 to-gray-800 rounded-lg flex items-center justify-center mr-4">
-                        <span className="text-white font-bold">
-                          {step.step}
-                        </span>
-                      </div>
-                      <div className="text-2xl font-bold text-gray-800">
-                        {step.step}
-                      </div>
-                    </div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">
-                      {step.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-2">
-                      {step.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section
-          className={`transition-all duration-1000 delay-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
-        >
-          <div className="max-w-4xl mx-auto bg-gradient-to-r from-gray-800 to-black rounded-2xl p-8 text-white text-center">
-            <h2 className="text-3xl font-bold mb-6">
-              Ready to Start Your Project?
-            </h2>
-            <p className="text-lg mb-8 opacity-90">
-              Let's discuss your requirements and create something amazing
-              together. With proven experience and a track record of success,
-              I'm committed to delivering solutions that exceed your
-              expectations.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="/contact"
-                className="bg-white text-gray-800 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 transform hover:scale-105"
-              >
-                Get Free Consultation
-              </a>
-              <a
-                href="mailto:brown.nicholas.darko@gmail.com"
-                className="bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/30 transition-colors duration-200 transform hover:scale-105"
-              >
-                Send Direct Email
-              </a>
-            </div>
-          </div>
-        </section>
-      </div>
+        </div>
+      )}
     </div>
   );
 };
