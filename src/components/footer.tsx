@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight, ArrowUp } from "lucide-react";
 import { navigationLinks, socialLinks } from "@/lib/constants";
 
 const Footer = () => {
@@ -8,31 +7,19 @@ const Footer = () => {
   return (
     <footer className="bg-ink text-paper">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="border-b border-line-dark py-20">
-          <p className="label-mono !text-paper/50 mb-6">Get in touch</p>
-          <h2 className="font-display text-4xl font-medium leading-tight tracking-tight md:text-6xl">
-            Have a project in mind?
-            <br />
-            <span className="italic text-paper/60">Let's build it together.</span>
-          </h2>
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <Link
-              to="/contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-paper px-6 py-3 text-sm font-medium text-ink transition-colors duration-200 hover:bg-paper/90"
-            >
-              Start a conversation
-              <ArrowUpRight
-                size={16}
-                className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              />
-            </Link>
-            <a
-              href="mailto:brown.nicholas.darko@gmail.com"
-              className="text-sm text-paper/60 underline-offset-4 transition-colors duration-200 hover:text-paper hover:underline"
-            >
-              brown.nicholas.darko@gmail.com
-            </a>
-          </div>
+        <div className="border-b border-line-dark py-20 md:py-28">
+          <p className="label-mono !text-paper/50 mb-8">Get in touch</p>
+          <a
+            href="mailto:brown.nicholas.darko@gmail.com"
+            className="font-display block break-words text-3xl font-medium leading-tight tracking-tight underline decoration-line-dark decoration-1 underline-offset-8 transition-colors duration-200 hover:decoration-accent sm:text-4xl md:text-6xl"
+          >
+            brown.nicholas.darko
+            <wbr />
+            @gmail.com
+          </a>
+          <p className="mt-8 max-w-md text-sm leading-relaxed text-paper/50">
+            Open to full-time roles, contract work, and collaborations.
+          </p>
         </div>
 
         <div className="grid gap-10 border-b border-line-dark py-14 md:grid-cols-3">
@@ -75,13 +62,9 @@ const Footer = () => {
                         ? "noopener noreferrer"
                         : undefined
                     }
-                    className="group inline-flex items-center gap-1 text-sm text-paper/70 transition-colors duration-200 hover:text-paper"
+                    className="text-sm text-paper/70 transition-colors duration-200 hover:text-paper"
                   >
                     {social.name}
-                    <ArrowUpRight
-                      size={13}
-                      className="opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-                    />
                   </a>
                 </li>
               ))}
@@ -90,15 +73,14 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col items-center justify-between gap-4 py-8 sm:flex-row">
-          <p className="text-xs text-paper/40">
-            © {currentYear} Nicholas Darko Brown. All rights reserved.
+          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-paper/40">
+            © {currentYear} Nicholas Darko Brown
           </p>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="inline-flex items-center gap-2 text-xs text-paper/40 transition-colors duration-200 hover:text-paper"
+            className="font-mono text-[11px] uppercase tracking-[0.15em] text-paper/40 transition-colors duration-200 hover:text-paper"
           >
-            Back to top
-            <ArrowUp size={13} />
+            Back to top ↑
           </button>
         </div>
       </div>

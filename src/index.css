@@ -95,21 +95,6 @@
     transform: translateY(0);
   }
 
-  .marquee-track {
-    animation: marquee 40s linear infinite;
-  }
-  .marquee-track:hover {
-    animation-play-state: paused;
-  }
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -117,8 +102,5 @@
     opacity: 1;
     transform: none;
     transition: none;
-  }
-  .marquee-track {
-    animation: none;
   }
 }

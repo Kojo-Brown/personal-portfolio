@@ -5,7 +5,6 @@ import { Github, Linkedin } from "lucide-react";
 const navItems = [
   { name: "About", to: "/about" },
   { name: "Works", to: "/works" },
-  { name: "Services", to: "/services" },
   { name: "Contact", to: "/contact" },
 ];
 
@@ -60,12 +59,6 @@ const Navbar = () => {
           >
             <Github size={18} />
           </a>
-          <Link
-            to="/contact"
-            className="rounded-full bg-ink px-4 py-2 text-sm font-medium text-paper transition-colors duration-200 hover:bg-ink/85"
-          >
-            Let's talk
-          </Link>
         </div>
 
         <button
