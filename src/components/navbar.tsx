@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Github, Linkedin } from "lucide-react";
+import { Github, Linkedin, Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import ModeToggle from "@/components/mode-toggle";
+import { cn } from "@/lib/utils";
 
 const navItems = [
   { name: "About", to: "/about" },
-  { name: "Works", to: "/works" },
+  { name: "Work", to: "/works" },
   { name: "Contact", to: "/contact" },
 ];
 
@@ -16,111 +19,88 @@ const Navbar = () => {
     setIsMenuOpen(false);
   }, [pathname]);
 
-  const linkClasses = ({ isActive }: { isActive: boolean }) =>
-    `text-sm transition-colors duration-200 ${
-      isActive ? "text-ink font-medium" : "text-ink-soft hover:text-ink"
-    }`;
-
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-paper/85 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <Link
-          to="/"
-          className="font-display text-lg font-medium tracking-tight text-ink"
-        >
+    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
+      <div className="mx-auto flex h-14 w-full max-w-5xl items-center gap-6 px-6">
+        <Link to="/" className="font-semibold tracking-tight">
           Nicholas Brown
-          <span className="text-accent">.</span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          {navItems.map((item) => (
-            <NavLink key={item.to} to={item.to} className={linkClasses}>
-              {item.name}
-            </NavLink>
-          ))}
-        </nav>
-
-        <div className="hidden items-center gap-5 md:flex">
-          <a
-            href="https://www.linkedin.com/in/nicholasdarkobrown/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className="text-ink-soft transition-colors duration-200 hover:text-ink"
-          >
-            <Linkedin size={18} />
-          </a>
-          <a
-            href="https://github.com/Kojo-Brown"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            className="text-ink-soft transition-colors duration-200 hover:text-ink"
-          >
-            <Github size={18} />
-          </a>
-        </div>
-
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="flex h-8 w-8 flex-col items-center justify-center space-y-1.5 md:hidden"
-          aria-label="Toggle menu"
-          aria-expanded={isMenuOpen}
-        >
-          <span
-            className={`h-px w-6 bg-ink transition-all duration-300 ${
-              isMenuOpen ? "translate-y-[3.5px] rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`h-px w-6 bg-ink transition-all duration-300 ${
-              isMenuOpen ? "-translate-y-[3.5px] -rotate-45" : ""
-            }`}
-          />
-        </button>
-      </div>
-
-      <div
-        className={`overflow-hidden border-line transition-all duration-300 ease-in-out md:hidden ${
-          isMenuOpen ? "max-h-96 border-t" : "max-h-0"
-        }`}
-      >
-        <nav className="space-y-1 px-6 py-4">
+        <nav className="hidden items-center gap-6 text-sm md:flex">
           {navItems.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `block py-2 text-lg ${
-                  isActive ? "text-ink font-medium" : "text-ink-soft"
-                }`
+                cn(
+                  "hover:text-foreground transition-colors",
+                  isActive ? "text-foreground font-medium" : "text-muted-foreground"
+                )
               }
             >
               {item.name}
             </NavLink>
           ))}
-          <div className="flex items-center gap-5 border-t border-line pt-4">
-            <a
-              href="https://www.linkedin.com/in/nicholasdarkobrown/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="text-ink-soft"
-            >
-              <Linkedin size={20} />
-            </a>
+        </nav>
+
+        <div className="ml-auto flex items-center gap-1">
+          <Button variant="ghost" size="icon" asChild>
             <a
               href="https://github.com/Kojo-Brown"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="text-ink-soft"
             >
-              <Github size={20} />
+              <Github />
             </a>
-          </div>
-        </nav>
+          </Button>
+          <Button variant="ghost" size="icon" asChild>
+            <a
+              href="https://www.linkedin.com/in/nicholasdarkobrown/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <Linkedin />
+            </a>
+          </Button>
+          <ModeToggle />
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen((open) => !open)}
+          >
+            {isMenuOpen ? <X /> : <Menu />}
+          </Button>
+        </div>
       </div>
+
+      {isMenuOpen && (
+        <nav className="border-t px-6 py-4 md:hidden">
+          <ul className="space-y-1">
+            {navItems.map((item) => (
+              <li key={item.to}>
+                <NavLink
+                  to={item.to}
+                  className={({ isActive }) =>
+                    cn(
+                      "block rounded-md px-3 py-2 text-sm",
+                      isActive
+                        ? "bg-accent text-accent-foreground font-medium"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    )
+                  }
+                >
+                  {item.name}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </header>
   );
 };

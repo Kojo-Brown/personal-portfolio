@@ -1,12 +1,30 @@
 import { useEffect, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { ArrowUpRight } from "lucide-react";
-import Reveal from "@/components/reveal";
+import {
+  ArrowUpRight,
+  Github,
+  Linkedin,
+  Mail,
+  MapPin,
+  type LucideIcon,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 interface ContactChannel {
   title: string;
   value: string;
   action: string;
+  icon: LucideIcon;
 }
 
 const contactChannels: ContactChannel[] = [
@@ -14,26 +32,27 @@ const contactChannels: ContactChannel[] = [
     title: "Email",
     value: "brown.nicholas.darko@gmail.com",
     action: "mailto:brown.nicholas.darko@gmail.com",
+    icon: Mail,
   },
   {
     title: "LinkedIn",
     value: "nicholasdarkobrown",
     action: "https://www.linkedin.com/in/nicholasdarkobrown/",
+    icon: Linkedin,
   },
   {
     title: "GitHub",
     value: "Kojo-Brown",
     action: "https://github.com/Kojo-Brown",
+    icon: Github,
   },
   {
     title: "Location",
     value: "New Haven, CT, USA",
     action: "https://maps.google.com/?q=New+Haven,CT",
+    icon: MapPin,
   },
 ];
-
-const inputClasses =
-  "w-full border-b border-line bg-transparent py-3 text-base text-ink placeholder:text-ink-soft/50 transition-colors duration-200 focus:border-ink focus:outline-none";
 
 const emptyForm = {
   name: "",
@@ -119,122 +138,109 @@ const Contact = () => {
   };
 
   return (
-    <div>
+    <div className="mx-auto w-full max-w-5xl px-6">
       {/* Header */}
-      <section className="mx-auto max-w-6xl px-6 pb-16 pt-24 md:pt-36">
-        <Reveal>
-          <p className="label-mono mb-6">Contact</p>
-          <h1 className="font-display max-w-3xl text-5xl font-medium leading-[1.04] tracking-tight md:text-7xl">
-            Let's talk.
-          </h1>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink-soft">
-            Whether it's a role, a project, or a question about my work — send
-            a message and I'll get back to you.
-          </p>
-        </Reveal>
+      <section className="pt-20 pb-12 md:pt-28">
+        <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
+          Contact
+        </h1>
+        <p className="text-muted-foreground mt-4 max-w-2xl text-lg leading-relaxed">
+          Whether it's a role, a project, or a question about my work — send a
+          message and I'll get back to you.
+        </p>
       </section>
 
-      <section className="mx-auto max-w-6xl border-t border-line px-6 pb-24 pt-16">
-        <div className="grid gap-16 lg:grid-cols-[1fr_320px] lg:gap-24">
-          {/* Form */}
-          <Reveal>
-            <div className="max-w-2xl space-y-10">
-              <div className="grid gap-10 md:grid-cols-2">
-                <div>
-                  <label htmlFor="name" className="label-mono mb-2 block">
-                    Name *
-                  </label>
-                  <input
+      <section className="grid gap-6 pb-20 md:pb-24 lg:grid-cols-[1fr_340px]">
+        {/* Form */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Send a message</CardTitle>
+            <CardDescription>
+              Fields marked with * are required.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-5">
+              <div className="grid gap-5 md:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name *</Label>
+                  <Input
                     id="name"
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Your full name"
-                    className={inputClasses}
                   />
                 </div>
-                <div>
-                  <label htmlFor="email" className="label-mono mb-2 block">
-                    Email *
-                  </label>
-                  <input
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email *</Label>
+                  <Input
                     id="email"
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    placeholder="your.email@example.com"
-                    className={inputClasses}
+                    placeholder="you@example.com"
                   />
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="subject" className="label-mono mb-2 block">
-                  Subject
-                </label>
-                <input
+              <div className="space-y-2">
+                <Label htmlFor="subject">Subject</Label>
+                <Input
                   id="subject"
                   type="text"
                   name="subject"
                   value={formData.subject}
                   onChange={handleInputChange}
                   placeholder="What's this about?"
-                  className={inputClasses}
                 />
               </div>
 
-              <div>
-                <label htmlFor="message" className="label-mono mb-2 block">
-                  Message *
-                </label>
-                <textarea
+              <div className="space-y-2">
+                <Label htmlFor="message">Message *</Label>
+                <Textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
                   placeholder="Tell me what you're working on or what you have in mind..."
-                  rows={5}
-                  className={`${inputClasses} resize-none`}
+                  rows={6}
                 />
               </div>
 
-              <button
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-                className={`inline-flex items-center justify-center gap-3 px-10 py-4 text-sm font-medium transition-colors duration-200 ${
-                  isSubmitting
-                    ? "cursor-not-allowed bg-ink/40 text-paper"
-                    : "bg-ink text-paper hover:bg-accent"
-                }`}
-              >
+              <Button onClick={handleSubmit} disabled={isSubmitting}>
                 {isSubmitting ? "Sending..." : "Send message"}
-              </button>
+              </Button>
 
               {submitStatus === "success" && (
-                <p className="border-l-2 border-emerald-600 pl-4 text-sm text-ink-soft">
+                <p className="rounded-md border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-600 dark:text-emerald-400">
                   Message sent — thanks for reaching out. I'll get back to you
                   soon.
                 </p>
               )}
 
               {submitStatus === "error" && (
-                <p className="border-l-2 border-accent pl-4 text-sm text-ink-soft">
+                <p className="border-destructive/30 bg-destructive/10 text-destructive rounded-md border px-4 py-3 text-sm">
                   Failed to send message. Please make sure all required fields
                   are filled, or email me directly.
                 </p>
               )}
             </div>
-          </Reveal>
+          </CardContent>
+        </Card>
 
-          {/* Sidebar */}
-          <Reveal delay={150}>
-            <div>
-              <p className="label-mono mb-2">Elsewhere</p>
-              <ul>
+        {/* Sidebar */}
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Elsewhere</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-1">
                 {contactChannels.map((channel) => (
-                  <li key={channel.title} className="border-b border-line">
+                  <li key={channel.title}>
                     <a
                       href={channel.action}
                       target={
@@ -245,34 +251,36 @@ const Contact = () => {
                           ? "noopener noreferrer"
                           : undefined
                       }
-                      className="group flex items-baseline justify-between gap-4 py-4"
+                      className="hover:bg-accent group -mx-2 flex items-center gap-3 rounded-md px-2 py-2 transition-colors"
                     >
-                      <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-ink-soft">
-                        {channel.title}
-                      </span>
-                      <span className="inline-flex min-w-0 items-center gap-1.5 text-sm font-medium">
-                        <span className="truncate transition-colors duration-200 group-hover:text-accent">
+                      <channel.icon className="text-muted-foreground size-4 shrink-0" />
+                      <span className="min-w-0">
+                        <span className="text-muted-foreground block text-xs">
+                          {channel.title}
+                        </span>
+                        <span className="block truncate text-sm font-medium">
                           {channel.value}
                         </span>
-                        <ArrowUpRight
-                          size={13}
-                          className="shrink-0 text-ink-soft opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-                        />
                       </span>
+                      <ArrowUpRight className="text-muted-foreground ml-auto size-4 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
                     </a>
                   </li>
                 ))}
               </ul>
+            </CardContent>
+          </Card>
 
-              <div className="mt-12">
-                <p className="label-mono mb-4">Availability</p>
-                <p className="text-sm leading-relaxed text-ink-soft">
-                  Open to opportunities — full-time roles, contract work, and
-                  collaborations. Based in New Haven, CT (Eastern Time).
-                </p>
-              </div>
-            </div>
-          </Reveal>
+          <Card>
+            <CardHeader>
+              <CardTitle>Availability</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Open to opportunities — full-time roles, contract work, and
+                collaborations. Based in New Haven, CT (Eastern Time).
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </section>
     </div>

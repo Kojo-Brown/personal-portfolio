@@ -1,198 +1,130 @@
 import { useState } from "react";
-import { ArrowUpRight, Plus } from "lucide-react";
-import Reveal from "@/components/reveal";
+import { ExternalLink, Github } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { projectCategories, projects } from "@/lib/constants";
 
 const Works = () => {
   const [activeCategory, setActiveCategory] = useState("all");
-  const [expandedId, setExpandedId] = useState<number | null>(null);
 
   const filteredProjects =
     activeCategory === "all"
       ? projects
       : projects.filter((p) => p.category === activeCategory);
 
-  const selectCategory = (id: string) => {
-    setActiveCategory(id);
-    setExpandedId(null);
-  };
-
   return (
-    <div>
+    <div className="mx-auto w-full max-w-5xl px-6">
       {/* Header */}
-      <section className="mx-auto max-w-6xl px-6 pb-16 pt-24 md:pt-36">
-        <Reveal>
-          <p className="label-mono mb-6">Selected work</p>
-          <h1 className="font-display max-w-3xl text-5xl font-medium leading-[1.04] tracking-tight md:text-7xl">
-            Work that ships.
-          </h1>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink-soft">
-            Enterprise systems, published research, and products running in
-            production — each with outcomes I can point to.
-          </p>
-        </Reveal>
+      <section className="pt-20 pb-10 md:pt-28">
+        <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Work</h1>
+        <p className="text-muted-foreground mt-4 max-w-2xl text-lg leading-relaxed">
+          Enterprise systems, published research, and products running in
+          production — each with outcomes I can point to.
+        </p>
       </section>
 
       {/* Filters */}
-      <section className="mx-auto max-w-6xl px-6">
-        <Reveal>
-          <div className="flex flex-wrap gap-x-8 gap-y-3 border-b border-line pb-4">
-            {projectCategories
-              .filter((category) => category.count > 0 || category.id === "all")
-              .map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => selectCategory(category.id)}
-                  className={`relative pb-1 text-sm transition-colors duration-200 ${
-                    activeCategory === category.id
-                      ? "font-medium text-ink"
-                      : "text-ink-soft hover:text-ink"
-                  }`}
-                >
-                  {category.name}
-                  <sup className="ml-1 font-mono text-[10px] text-ink-soft">
-                    {category.count}
-                  </sup>
-                  <span
-                    className={`absolute -bottom-[17px] left-0 h-px w-full bg-accent transition-transform duration-300 ${
-                      activeCategory === category.id
-                        ? "scale-x-100"
-                        : "scale-x-0"
-                    }`}
-                  />
-                </button>
-              ))}
-          </div>
-        </Reveal>
-      </section>
+      <div className="flex flex-wrap gap-2">
+        {projectCategories
+          .filter((category) => category.count > 0 || category.id === "all")
+          .map((category) => (
+            <Button
+              key={category.id}
+              size="sm"
+              variant={activeCategory === category.id ? "default" : "outline"}
+              onClick={() => setActiveCategory(category.id)}
+            >
+              {category.name}
+              <span className="text-xs opacity-60">{category.count}</span>
+            </Button>
+          ))}
+      </div>
 
-      {/* Project list */}
-      <section className="mx-auto max-w-6xl px-6 pb-24 md:pb-32">
-        <div>
-          {filteredProjects.map((project, index) => {
-            const isExpanded = expandedId === project.id;
-            return (
-              <Reveal key={project.id} delay={(index % 4) * 60}>
-                <article className="border-b border-line">
-                  <button
-                    onClick={() =>
-                      setExpandedId(isExpanded ? null : project.id)
-                    }
-                    aria-expanded={isExpanded}
-                    className="group grid w-full items-baseline gap-2 py-8 text-left md:grid-cols-[80px_1fr_220px_32px] md:gap-6"
-                  >
-                    <span className="font-mono text-xs text-ink-soft">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <h2
-                        className={`font-display text-2xl font-medium tracking-tight transition-colors duration-200 md:text-3xl ${
-                          isExpanded ? "text-accent" : "group-hover:text-accent"
-                        }`}
-                      >
-                        {project.title}
-                      </h2>
-                      <p className="mt-2 max-w-lg text-sm leading-relaxed text-ink-soft">
-                        {project.description}
-                      </p>
-                    </div>
-                    <div className="font-mono text-xs uppercase tracking-[0.15em] text-ink-soft md:text-right">
-                      <p>{project.category.replace("-", " ")}</p>
-                      <p className="mt-1">
-                        {project.company
-                          ? `${project.company} · ${project.year}`
-                          : project.year}
-                      </p>
-                      {project.status === "in-progress" && (
-                        <p className="mt-1 text-accent">In progress</p>
-                      )}
-                    </div>
-                    <Plus
-                      size={18}
-                      className={`hidden self-center justify-self-end text-ink-soft transition-transform duration-300 md:block ${
-                        isExpanded ? "rotate-45 text-accent" : ""
-                      }`}
-                    />
-                  </button>
+      {/* Projects */}
+      <section className="grid gap-4 py-10 pb-20 md:grid-cols-2 md:pb-24">
+        {filteredProjects.map((project) => (
+          <Card key={project.id} className="flex flex-col">
+            <CardHeader>
+              <div className="flex flex-wrap items-center gap-2">
+                <Badge variant="outline">
+                  {project.company
+                    ? `${project.company} · ${project.year}`
+                    : project.year}
+                </Badge>
+                {project.status === "in-progress" && (
+                  <Badge variant="secondary">In progress</Badge>
+                )}
+              </div>
+              <CardTitle className="mt-1 text-xl">{project.title}</CardTitle>
+              <CardDescription className="leading-relaxed">
+                {project.longDescription}
+              </CardDescription>
+            </CardHeader>
 
-                  {isExpanded && (
-                    <div className="grid gap-10 pb-12 md:grid-cols-[80px_1fr] md:gap-6">
-                      <span className="hidden md:block" />
-                      <div className="max-w-3xl">
-                        <p className="text-base leading-relaxed text-ink-soft">
-                          {project.longDescription}
-                        </p>
+            <CardContent className="flex-1">
+              {project.achievements.length > 0 && (
+                <ul className="text-muted-foreground space-y-1.5 text-sm">
+                  {project.achievements.map((achievement) => (
+                    <li key={achievement} className="flex gap-2">
+                      <span className="bg-foreground/40 mt-2 size-1 shrink-0 rounded-full" />
+                      {achievement}
+                    </li>
+                  ))}
+                </ul>
+              )}
 
-                        <div className="mt-10 grid gap-10 sm:grid-cols-2">
-                          <div>
-                            <p className="label-mono mb-4">Key features</p>
-                            <ul className="space-y-2.5">
-                              {project.features.map((feature) => (
-                                <li
-                                  key={feature}
-                                  className="text-sm leading-relaxed text-ink-soft"
-                                >
-                                  {feature}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                          <div>
-                            <p className="label-mono mb-4">Outcomes</p>
-                            <ul className="space-y-2.5">
-                              {project.achievements.map((achievement) => (
-                                <li
-                                  key={achievement}
-                                  className="text-sm leading-relaxed text-ink-soft"
-                                >
-                                  {achievement}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
+              <div className="mt-4 flex flex-wrap gap-1.5">
+                {project.technologies.slice(0, 6).map((tech) => (
+                  <Badge key={tech} variant="secondary">
+                    {tech}
+                  </Badge>
+                ))}
+                {project.technologies.length > 6 && (
+                  <Badge variant="secondary">
+                    +{project.technologies.length - 6}
+                  </Badge>
+                )}
+              </div>
+            </CardContent>
 
-                        <div className="mt-10 border-t border-line pt-6">
-                          <p className="label-mono mb-3">Stack</p>
-                          <p className="font-mono text-xs leading-loose text-ink-soft">
-                            {project.technologies.join(" · ")}
-                          </p>
-                        </div>
-
-                        {(project.liveUrl || project.githubUrl) && (
-                          <div className="mt-8 flex flex-wrap gap-8">
-                            {project.liveUrl && (
-                              <a
-                                href={project.liveUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 text-sm font-medium underline decoration-line underline-offset-4 transition-colors duration-200 hover:decoration-accent"
-                              >
-                                Live site
-                                <ArrowUpRight size={14} />
-                              </a>
-                            )}
-                            {project.githubUrl && (
-                              <a
-                                href={project.githubUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 text-sm font-medium underline decoration-line underline-offset-4 transition-colors duration-200 hover:decoration-accent"
-                              >
-                                Source
-                                <ArrowUpRight size={14} />
-                              </a>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </article>
-              </Reveal>
-            );
-          })}
-        </div>
+            {(project.liveUrl || project.githubUrl) && (
+              <CardFooter className="gap-2">
+                {project.liveUrl && (
+                  <Button size="sm" variant="outline" asChild>
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink />
+                      Live site
+                    </a>
+                  </Button>
+                )}
+                {project.githubUrl && (
+                  <Button size="sm" variant="outline" asChild>
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Github />
+                      Source
+                    </a>
+                  </Button>
+                )}
+              </CardFooter>
+            )}
+          </Card>
+        ))}
       </section>
     </div>
   );

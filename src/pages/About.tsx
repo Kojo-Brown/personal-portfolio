@@ -1,5 +1,15 @@
 import { Link } from "react-router-dom";
-import Reveal from "@/components/reveal";
+import { ArrowRight, Award, GraduationCap } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { aboutSkills, awards, experiences } from "@/lib/constants";
 
 const skillGroups = [
@@ -15,234 +25,191 @@ const About = () => {
   const education = experiences.filter((exp) => exp.type === "education");
 
   return (
-    <div>
+    <div className="mx-auto w-full max-w-5xl px-6">
       {/* Intro */}
-      <section className="mx-auto max-w-6xl px-6 pb-24 pt-24 md:pt-36">
-        <div className="grid items-start gap-12 lg:grid-cols-[1fr_340px] lg:gap-24">
-          <div>
-            <Reveal>
-              <p className="label-mono mb-6">About me</p>
-              <h1 className="font-display text-5xl font-medium leading-[1.04] tracking-tight md:text-6xl lg:text-7xl">
-                Engineer, mentor, <em className="font-normal">problem-solver</em>.
-              </h1>
-            </Reveal>
-            <Reveal delay={150}>
-              <div className="mt-10 max-w-xl space-y-5 text-lg leading-relaxed text-ink-soft">
-                <p>
-                  I'm Nicholas Darko Brown, a software engineer from Ghana,
-                  based in New Haven, Connecticut. I hold an M.S. in Computer
-                  Science from Quinnipiac University and spent three years at
-                  Amalitech Services leading frontend work on enterprise
-                  applications.
-                </p>
-                <p>
-                  My work spans a 3D injection-molding analysis system that cut
-                  manufacturing errors by 35%, a restaurant platform that lifted
-                  repeat customers by 25%, and mentoring eight junior developers
-                  along the way. I care about software that solves real problems
-                  — and teams that get better at building it.
-                </p>
-              </div>
-            </Reveal>
+      <section className="grid items-start gap-10 pt-20 pb-16 md:pt-28 lg:grid-cols-[1fr_300px] lg:gap-16">
+        <div>
+          <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
+            About me
+          </h1>
+          <div className="text-muted-foreground mt-6 max-w-2xl space-y-4 text-lg leading-relaxed">
+            <p>
+              I'm Nicholas Darko Brown, a software engineer from Ghana, based
+              in New Haven, Connecticut. I hold an M.S. in Computer Science
+              from Quinnipiac University and spent three years at Amalitech
+              Services leading frontend work on enterprise applications.
+            </p>
+            <p>
+              My work spans a 3D injection-molding analysis system that cut
+              manufacturing errors by 35%, a restaurant platform that lifted
+              repeat customers by 25%, and mentoring eight junior developers
+              along the way. I care about software that solves real problems —
+              and teams that get better at building it.
+            </p>
           </div>
-
-          <Reveal delay={200} className="lg:sticky lg:top-24">
-            <figure>
-              <img
-                src="/images/Photo.PNG"
-                alt="Nicholas Darko Brown"
-                className="w-full border border-line object-cover"
-              />
-              <figcaption className="mt-3 flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.15em] text-ink-soft">
-                <span>Nicholas Darko Brown</span>
-                <span>New Haven, CT</span>
-              </figcaption>
-            </figure>
-          </Reveal>
         </div>
+
+        <Card className="overflow-hidden py-0">
+          <img
+            src="/images/Photo.PNG"
+            alt="Nicholas Darko Brown"
+            className="w-full object-cover"
+          />
+          <CardContent className="pb-4">
+            <p className="text-sm font-medium">Nicholas Darko Brown</p>
+            <p className="text-muted-foreground text-sm">New Haven, CT</p>
+          </CardContent>
+        </Card>
       </section>
 
       {/* Experience */}
-      <section className="border-t border-line">
-        <div className="mx-auto max-w-6xl px-6 py-24">
-          <Reveal>
-            <p className="label-mono mb-4">01 — Experience</p>
-            <h2 className="font-display text-3xl font-medium tracking-tight md:text-5xl">
-              Where I've worked
-            </h2>
-          </Reveal>
-
-          <div className="mt-16 border-t border-line">
-            {workExperience.map((exp, index) => (
-              <Reveal key={exp.id} delay={index * 80}>
-                <div className="grid gap-6 border-b border-line py-10 md:grid-cols-[220px_1fr] md:gap-12">
-                  <div className="font-mono text-xs uppercase tracking-[0.15em] text-ink-soft">
-                    <p>{exp.period}</p>
-                    <p className="mt-2">{exp.location}</p>
-                  </div>
-                  <div>
-                    <h3 className="font-display text-2xl font-medium tracking-tight">
-                      {exp.title}
-                    </h3>
-                    <p className="mt-1 text-sm text-ink-soft">{exp.company}</p>
-                    <p className="mt-4 max-w-2xl text-sm leading-relaxed text-ink-soft">
-                      {exp.description}
-                    </p>
-                    <ul className="mt-6 space-y-3">
-                      {exp.achievements.map((achievement) => (
-                        <li
-                          key={achievement}
-                          className="max-w-2xl text-sm leading-relaxed text-ink-soft"
-                        >
-                          {achievement}
-                        </li>
-                      ))}
-                    </ul>
-                    {exp.technologies.length > 0 && (
-                      <p className="mt-6 font-mono text-xs text-ink-soft">
-                        {exp.technologies.join(" · ")}
-                      </p>
-                    )}
-                  </div>
+      <section className="border-t py-16">
+        <h2 className="text-3xl font-semibold tracking-tight">Experience</h2>
+        <div className="mt-8 space-y-8">
+          {workExperience.map((exp, index) => (
+            <div key={exp.id}>
+              {index > 0 && <Separator className="mb-8" />}
+              <div className="grid gap-4 md:grid-cols-[200px_1fr] md:gap-10">
+                <div className="text-muted-foreground text-sm">
+                  <p>{exp.period}</p>
+                  <p className="mt-1">{exp.location}</p>
                 </div>
-              </Reveal>
-            ))}
-          </div>
+                <div>
+                  <h3 className="text-lg font-semibold">{exp.title}</h3>
+                  <p className="text-muted-foreground text-sm">{exp.company}</p>
+                  <p className="text-muted-foreground mt-3 max-w-2xl text-sm leading-relaxed">
+                    {exp.description}
+                  </p>
+                  <ul className="text-muted-foreground mt-4 space-y-1.5 text-sm">
+                    {exp.achievements.map((achievement) => (
+                      <li key={achievement} className="flex gap-2">
+                        <span className="bg-foreground/40 mt-2 size-1 shrink-0 rounded-full" />
+                        <span className="max-w-2xl leading-relaxed">
+                          {achievement}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  {exp.technologies.length > 0 && (
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {exp.technologies.map((tech) => (
+                        <Badge key={tech} variant="secondary">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Education */}
-      <section className="border-t border-line">
-        <div className="mx-auto max-w-6xl px-6 py-24">
-          <Reveal>
-            <p className="label-mono mb-4">02 — Education</p>
-            <h2 className="font-display text-3xl font-medium tracking-tight md:text-5xl">
-              Academic foundation
-            </h2>
-          </Reveal>
-
-          <div className="mt-16 border-t border-line">
-            {education.map((edu, index) => (
-              <Reveal key={edu.id} delay={index * 80}>
-                <div className="grid gap-6 border-b border-line py-10 md:grid-cols-[220px_1fr] md:gap-12">
-                  <div className="font-mono text-xs uppercase tracking-[0.15em] text-ink-soft">
-                    <p>{edu.period}</p>
-                    <p className="mt-2">{edu.location}</p>
-                  </div>
-                  <div>
-                    <h3 className="font-display text-2xl font-medium tracking-tight">
-                      {edu.title}
-                    </h3>
-                    <p className="mt-1 text-sm text-ink-soft">{edu.company}</p>
-                    <p className="mt-4 max-w-2xl text-sm leading-relaxed text-ink-soft">
-                      {edu.description}
-                    </p>
-                    <ul className="mt-6 space-y-3">
-                      {edu.achievements.map((achievement) => (
-                        <li
-                          key={achievement}
-                          className="max-w-2xl text-sm leading-relaxed text-ink-soft"
-                        >
-                          {achievement}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+      <section className="border-t py-16">
+        <h2 className="text-3xl font-semibold tracking-tight">Education</h2>
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          {education.map((edu) => (
+            <Card key={edu.id}>
+              <CardHeader>
+                <div className="bg-muted mb-2 flex size-10 items-center justify-center rounded-lg">
+                  <GraduationCap className="size-5" />
                 </div>
-              </Reveal>
-            ))}
-          </div>
+                <CardTitle>{edu.title}</CardTitle>
+                <CardDescription>
+                  {edu.company} · {edu.location}
+                  <br />
+                  {edu.period}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="text-muted-foreground space-y-1.5 text-sm">
+                  {edu.achievements.map((achievement) => (
+                    <li key={achievement} className="flex gap-2">
+                      <span className="bg-foreground/40 mt-2 size-1 shrink-0 rounded-full" />
+                      <span className="leading-relaxed">{achievement}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </section>
 
       {/* Skills */}
-      <section className="border-t border-line">
-        <div className="mx-auto max-w-6xl px-6 py-24">
-          <Reveal>
-            <p className="label-mono mb-4">03 — Skills</p>
-            <h2 className="font-display text-3xl font-medium tracking-tight md:text-5xl">
-              Tools of the trade
-            </h2>
-          </Reveal>
-
-          <div className="mt-16 border-t border-line">
-            {skillGroups.map((group, index) => {
-              const groupSkills = aboutSkills.filter((skill) =>
-                group.categories.includes(skill.category)
-              );
-              if (groupSkills.length === 0) return null;
-              return (
-                <Reveal key={group.name} delay={index * 60}>
-                  <div className="grid gap-3 border-b border-line py-8 md:grid-cols-[220px_1fr] md:gap-12">
-                    <p className="font-mono text-xs uppercase tracking-[0.15em] text-ink-soft">
-                      {group.name}
-                    </p>
-                    <p className="text-lg leading-relaxed">
-                      {groupSkills.map((skill, i) => (
-                        <span key={skill.name} title={skill.description}>
-                          {skill.name}
-                          {i < groupSkills.length - 1 && (
-                            <span className="text-ink-soft/50">{"  /  "}</span>
-                          )}
-                        </span>
-                      ))}
-                    </p>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
+      <section className="border-t py-16">
+        <h2 className="text-3xl font-semibold tracking-tight">Skills</h2>
+        <div className="mt-8 space-y-6">
+          {skillGroups.map((group) => {
+            const groupSkills = aboutSkills.filter((skill) =>
+              group.categories.includes(skill.category)
+            );
+            if (groupSkills.length === 0) return null;
+            return (
+              <div
+                key={group.name}
+                className="grid gap-2 md:grid-cols-[200px_1fr] md:gap-10"
+              >
+                <p className="text-sm font-medium">{group.name}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {groupSkills.map((skill) => (
+                    <Badge
+                      key={skill.name}
+                      variant="secondary"
+                      title={skill.description}
+                    >
+                      {skill.name}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
       {/* Awards */}
-      <section className="bg-ink text-paper">
-        <div className="mx-auto max-w-6xl px-6 py-24">
-          <Reveal>
-            <p className="label-mono !text-paper/50 mb-4">04 — Recognition</p>
-            <h2 className="font-display text-3xl font-medium tracking-tight md:text-5xl">
-              Awards & recognition
-            </h2>
-          </Reveal>
-
-          <div className="mt-16 border-t border-line-dark">
-            {awards.map((award, index) => (
-              <Reveal key={award.title} delay={index * 80}>
-                <div className="grid gap-4 border-b border-line-dark py-8 md:grid-cols-[220px_1fr_1fr] md:gap-12">
-                  <p className="font-mono text-xs uppercase tracking-[0.15em] text-paper/40">
-                    {award.date}
-                  </p>
-                  <div>
-                    <h3 className="font-display text-xl font-medium tracking-tight">
-                      {award.title}
-                    </h3>
-                    <p className="mt-1 text-sm text-paper/50">
-                      {award.organization}
-                    </p>
-                  </div>
-                  <p className="text-sm leading-relaxed text-paper/60">
-                    {award.description}
-                  </p>
+      <section className="border-t py-16 pb-20 md:pb-24">
+        <h2 className="text-3xl font-semibold tracking-tight">Recognition</h2>
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          {awards.map((award) => (
+            <Card key={award.title}>
+              <CardHeader>
+                <div className="bg-muted mb-2 flex size-10 items-center justify-center rounded-lg">
+                  <Award className="size-5" />
                 </div>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal>
-            <div className="mt-14 flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
-              <p className="max-w-xl text-lg leading-relaxed text-paper/70">
-                Beyond code, I'm active in the tech community — hackathons,
-                mentoring, and continuous learning.
-              </p>
-              <Link
-                to="/contact"
-                className="inline-flex shrink-0 items-center justify-center bg-paper px-8 py-4 text-sm font-medium text-ink transition-colors duration-200 hover:bg-accent hover:text-paper"
-              >
-                Work with me
-              </Link>
-            </div>
-          </Reveal>
+                <CardTitle>{award.title}</CardTitle>
+                <CardDescription>
+                  {award.organization} · {award.date}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {award.description}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
+
+        <Card className="mt-10 items-center py-10 text-center">
+          <CardContent className="flex flex-col items-center">
+            <h3 className="text-xl font-semibold tracking-tight">
+              Want to work together?
+            </h3>
+            <p className="text-muted-foreground mt-2 max-w-md text-sm">
+              Open to full-time roles, contract work, and collaborations.
+            </p>
+            <Button className="mt-5" asChild>
+              <Link to="/contact">
+                Get in touch
+                <ArrowRight />
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
       </section>
     </div>
   );

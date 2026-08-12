@@ -5,42 +5,25 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-ink text-paper">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="border-b border-line-dark py-20 md:py-28">
-          <p className="label-mono !text-paper/50 mb-8">Get in touch</p>
-          <a
-            href="mailto:brown.nicholas.darko@gmail.com"
-            className="font-display block break-words text-3xl font-medium leading-tight tracking-tight underline decoration-line-dark decoration-1 underline-offset-8 transition-colors duration-200 hover:decoration-accent sm:text-4xl md:text-6xl"
-          >
-            brown.nicholas.darko
-            <wbr />
-            @gmail.com
-          </a>
-          <p className="mt-8 max-w-md text-sm leading-relaxed text-paper/50">
-            Open to full-time roles, contract work, and collaborations.
-          </p>
-        </div>
-
-        <div className="grid gap-10 border-b border-line-dark py-14 md:grid-cols-3">
-          <div>
-            <p className="font-display text-lg font-medium">
-              Nicholas Brown<span className="text-accent">.</span>
-            </p>
-            <p className="mt-3 max-w-xs text-sm leading-relaxed text-paper/50">
+    <footer className="border-t">
+      <div className="mx-auto w-full max-w-5xl px-6 py-12">
+        <div className="grid gap-10 md:grid-cols-[1fr_auto_auto] md:gap-20">
+          <div className="max-w-sm">
+            <p className="font-semibold tracking-tight">Nicholas Brown</p>
+            <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
               Software engineer building scalable applications and robust
               systems. Based in New Haven, CT.
             </p>
           </div>
 
           <div>
-            <p className="label-mono !text-paper/40 mb-5">Navigation</p>
-            <ul className="space-y-3">
+            <p className="text-sm font-medium">Pages</p>
+            <ul className="mt-3 space-y-2">
               {navigationLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="text-sm text-paper/70 transition-colors duration-200 hover:text-paper"
+                    className="text-muted-foreground hover:text-foreground text-sm transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -50,8 +33,8 @@ const Footer = () => {
           </div>
 
           <div>
-            <p className="label-mono !text-paper/40 mb-5">Elsewhere</p>
-            <ul className="space-y-3">
+            <p className="text-sm font-medium">Connect</p>
+            <ul className="mt-3 space-y-2">
               {socialLinks.map((social) => (
                 <li key={social.name}>
                   <a
@@ -62,7 +45,7 @@ const Footer = () => {
                         ? "noopener noreferrer"
                         : undefined
                     }
-                    className="text-sm text-paper/70 transition-colors duration-200 hover:text-paper"
+                    className="text-muted-foreground hover:text-foreground text-sm transition-colors"
                   >
                     {social.name}
                   </a>
@@ -72,16 +55,9 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-4 py-8 sm:flex-row">
-          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-paper/40">
-            © {currentYear} Nicholas Darko Brown
-          </p>
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="font-mono text-[11px] uppercase tracking-[0.15em] text-paper/40 transition-colors duration-200 hover:text-paper"
-          >
-            Back to top ↑
-          </button>
+        <div className="text-muted-foreground mt-12 flex flex-col items-start justify-between gap-2 border-t pt-6 text-sm sm:flex-row">
+          <p>© {currentYear} Nicholas Darko Brown</p>
+          <p>New Haven, CT</p>
         </div>
       </div>
     </footer>
